@@ -1,0 +1,96 @@
+import { StyleSheet } from "react-native";
+import { Colors } from "../../utils/Colors";
+import { commonStyles } from "../../utils/commonStyles";
+import {Fonts } from '../../utils/Fonts'
+
+export default StyleSheet.create({
+    container:{
+        flex:1,
+        backgroundColor:'white',
+    },
+    topCard:{
+        width:'90%',
+        borderRadius:10,
+        backgroundColor:Colors.primary2,
+        alignSelf:'center',
+        marginTop:10,
+        padding:10,
+    },
+    dueAmount:{
+        fontFamily:Fonts.bold,
+        fontSize:16,
+        color:Colors.primary1,
+        alignSelf:'center',
+    },
+    amountText:{
+        fontFamily:Fonts.bold,
+        color:Colors.white,
+        fontSize:30,
+        alignSelf:'center',
+    },
+    cardOptionRow:{
+        flexDirection:'row',      
+        marginTop:10,
+    },
+    cardOption:{
+        height:70,
+        flex:1,
+        alignItems:'center',
+        justifyContent:'center'
+    },
+    optionTitle:{
+        fontFamily:Fonts.semiBold,
+        fontSize:12,
+        color:Colors.white
+    },
+    optionDes:{
+        fontFamily:Fonts.bold,
+        color:Colors.white
+    },
+    optionsRow:{
+        flexDirection:'row',
+        height:100,
+        marginTop:10,
+        marginHorizontal:10,
+    },
+    option:{
+        flex:1,
+        borderWidth:1,
+        borderColor:Colors.primary2,
+        margin:10,
+        borderRadius:10,
+        alignItems:'center',
+        justifyContent:'center'
+    },
+    bottomButton:{
+        flexDirection:'row',
+        width:'100%',
+        height:100,
+        justifyContent:'space-around',
+        position:'absolute',
+        alignItems:'center',
+        bottom:30,
+    },
+    btn:{
+        height:45,
+        width:150,
+        borderRadius:10,
+        backgroundColor:Colors.white,
+        alignSelf:'center',
+        marginTop:40,
+        alignItems:'center',
+        justifyContent:'center',
+        ...commonStyles.shadow
+    },
+    btnText:{
+        color:Colors.red,
+        fontFamily:Fonts.bold,
+    },
+    optionText:{
+        fontFamily:Fonts.semiBold,
+        fontSize:12,
+        color:Colors.primary2,
+        marginTop:5,
+    }
+    
+})
