@@ -6,7 +6,8 @@ import {
     TextInput,
     TouchableOpacity,
     Image,
-    FlatList
+    FlatList,
+    Linking
 } from 'react-native'
 import styles from './style'
 import * as image from '../../utils/imagePath'
@@ -44,7 +45,7 @@ class Invoices extends React.Component{
                 this.props.navigation.navigate('SelectPolicies')
             }}
             onViewClick={() => {
-                console.log('view')
+                Linking.openURL('http://docs.google.com/viewer?url=httml://47.21.85.156:7777')
             }}
         />  
     }
@@ -58,7 +59,7 @@ class Invoices extends React.Component{
                 <TopBar 
                     title={'Invoices'}
                     onBackClick={() => { this.props.navigation.goBack() }}
-                    onHomeClick={() => { console.log('home')}}
+                    onHomeClick={() => { this.props.navigation.navigate('Dashboard')}}
                 />
                 <FlatList 
                     data={this.state.invoices}

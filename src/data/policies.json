@@ -28,5 +28,50 @@
         "past_due":"$ 08.00",
         "current_due":"$ 02.00",
         "total_due":"$ 10.00"
+    },
+    {
+        "id":"3",
+        "policy_no":"Maria1",
+        "transit_type":"American Transit",
+        "policy_type":"LIABILITY",
+        "status":"active",
+        "effective_date":"05/24/2022",
+        "expiry_date":"05/24/2022",
+        "total_policy_cost":"$ 44.00",
+        "paid_upto_now":"$ 26.00",
+        "remaining_balance":"$ 18.00",
+        "past_due":"$ 08.00",
+        "current_due":"$ 02.00",
+        "total_due":"$ 10.00"
+    },
+    {
+        "id":"4",
+        "policy_no":"Maria1",
+        "transit_type":"American Transit",
+        "policy_type":"LIABILITY",
+        "status":"active",
+        "effective_date":"05/24/2022",
+        "expiry_date":"05/24/2022",
+        "total_policy_cost":"$ 44.00",
+        "paid_upto_now":"$ 26.00",
+        "remaining_balance":"$ 18.00",
+        "past_due":"$ 08.00",
+        "current_due":"$ 02.00",
+        "total_due":"$ 10.00"
+    },
+    {
+        "id":"5",
+        "policy_no":"Maria1",
+        "transit_type":"American Transit",
+        "policy_type":"LIABILITY",
+        "status":"active",
+        "effective_date":"05/24/2022",
+        "expiry_date":"05/24/2022",
+        "total_policy_cost":"$ 44.00",
+        "paid_upto_now":"$ 26.00",
+        "remaining_balance":"$ 18.00",
+        "past_due":"$ 08.00",
+        "current_due":"$ 02.00",
+        "total_due":"$ 10.00"
     }
 ]

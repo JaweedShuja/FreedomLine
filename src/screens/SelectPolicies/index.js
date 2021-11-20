@@ -39,6 +39,7 @@ class SelectPolicies extends React.Component{
             }),
             isPoliciesSelected:false,
             selectedPolicy:null,
+            pay_type:'',
 
             modalVisible_PaymentOption:false,
             modalVisible_PaymentPolicy:false,
@@ -86,7 +87,7 @@ class SelectPolicies extends React.Component{
                 <TopBar 
                     title={'Select Policies'}
                     onBackClick={() => { this.props.navigation.goBack() }}
-                    onHomeClick={() => { console.log('home')}}
+                    onHomeClick={() => { this.props.navigation.navigate('Dashboard')}}
                 />
                 <Modal
                     visible={this.state.modalVisible_PaymentOption}
@@ -98,6 +99,9 @@ class SelectPolicies extends React.Component{
                         modalVisible={this.setModalVisible_PaymentOption}
                         selectedPolicy={this.state.selectedPolicy}
                         onPaymentOptionSelected={async (type) => {  
+                            this.setState({
+                                pay_type:type
+                            })
                             await this.setModalVisible_PaymentOption()
                             this.setModalVisible_PaymentPolicy()
                         }}
@@ -112,9 +116,16 @@ class SelectPolicies extends React.Component{
                 >
                     <PaymentPolicyModal
                         modalVisible={this.setModalVisible_PaymentPolicy}
-                        onContinuePress={() => {
-                            this.setModalVisible_PaymentPolicy()
-                            this.props.navigation.navigate('AddPayment')
+                        onContinuePress={async () => {
+                            await this.setModalVisible_PaymentPolicy()
+                            if(this.state.pay_type === 'ach'){
+                                this.props.navigation.navigate('PayWithACH',{
+                                    total_amount:this.state.selectedPolicy.total_due,
+                                })
+                            }else{
+                                this.props.navigation.navigate('AddPayment')
+                            }
+                            
                         }}
                     />
 

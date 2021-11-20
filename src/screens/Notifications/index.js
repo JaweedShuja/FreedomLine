@@ -63,7 +63,7 @@ class Notifications extends React.Component{
                 <TopBar 
                     title={'Notifications'}
                     onBackClick={() => { this.props.navigation.goBack() }}
-                    onHomeClick={() => { console.log('home')}}
+                    onHomeClick={() => { this.props.navigation.navigate('Dashboard')}}
                 />
                 <FlatList 
                     data={this.state.notifications}

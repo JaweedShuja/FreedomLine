@@ -49,7 +49,7 @@ class Policies extends React.Component{
                 <TopBar 
                     title={'Policies'}
                     onBackClick={() => { this.props.navigation.goBack() }}
-                    onCardClick={() => { console.log('card')}}
+                    onCardClick={() => { this.props.navigation.navigate('SelectPolicies')}}
                 />
                 <FlatList 
                     data={this.state.policies}

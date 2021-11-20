@@ -48,7 +48,7 @@ class PolicyDetails extends React.Component{
                 <TopBar 
                     title={'Policy Details'}
                     onBackClick={() => { this.props.navigation.goBack() }}
-                    onHomeClick={() => { console.log('home')}}
+                    onHomeClick={() => { this.props.navigation.navigate('Dashboard')}}
                 />
                 <View style={styles.detailsContainer}>
                     <View style={styles.status}>

@@ -58,7 +58,7 @@ class AddPayment extends React.Component{
                 <TopBar 
                     title={'Pay Now'}
                     onBackClick={() => { this.props.navigation.goBack() }}
-                    onHomeClick={() => { console.log('home')}}
+                    onHomeClick={() => { this.props.navigation.navigate('Dashboard')}}
                 />
                 <View style={{flex:1}}>
                     <CreditCardInput

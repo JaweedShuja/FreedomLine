@@ -46,7 +46,7 @@ class UploadDocuments extends React.Component{
                 <TopBar 
                     title={'Upload Documents'}
                     onBackClick={() => { this.props.navigation.goBack() }}
-                    onHomeClick={() => { console.log('home')}}
+                    onHomeClick={() => { this.props.navigation.navigate('Dashboard')}}
                 />
                 <Modal
                     visible={this.state.modalVisible_Camera}

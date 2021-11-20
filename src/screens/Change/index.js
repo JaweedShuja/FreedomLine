@@ -27,6 +27,12 @@ import Input from './input'
 import ProfileCard from '../../components/ProfileCard'
 import ProfileBottomOptions from '../../components/ProfileBottomOptions'
 import { Fonts } from '../../utils/Fonts'
+
+import { ChangeAddressRequestAPI } from '../../networking/api'
+import {PostRequest} from '../../networking/request'
+import {ChangeAddressRequestPayloads} from '../../networking/payload'
+
+
 class Profile extends React.Component{
     constructor(props){
         super(props)
@@ -35,6 +41,7 @@ class Profile extends React.Component{
             type:this.props.route.params.type
         }
     }
+    
     render(){
         return(
             <View style={styles.container}>
@@ -45,7 +52,7 @@ class Profile extends React.Component{
                 <TopBar 
                     title={`Change of ${this.state.type}`}
                     onBackClick={() => { this.props.navigation.goBack() }}
-                    onHomeClick={() => { console.log('home')}}
+                    onHomeClick={() => { this.props.navigation.navigate('Dashboard')}}
                 />
                 <Circle/>                
 

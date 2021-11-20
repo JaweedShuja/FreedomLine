@@ -48,7 +48,7 @@ class Endorsements extends React.Component{
                 <TopBar 
                     title={'Endorsements'}
                     onBackClick={() => { this.props.navigation.goBack() }}
-                    onHomeClick={() => { console.log('home')}}
+                    onHomeClick={() => { this.props.navigation.navigate('Dashboard')}}
                 />
                 <Modal
                     visible={this.state.modalVisible_Change}

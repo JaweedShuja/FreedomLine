@@ -54,7 +54,7 @@ class RecentPayments extends React.Component{
                 <TopBar 
                     title={'Recent Payments'}
                     onBackClick={() => { this.props.navigation.goBack() }}
-                    onHomeClick={() => { console.log('home')}}
+                    onHomeClick={() => { this.props.navigation.navigate('Dashboard')}}
                 />
                 <FlatList 
                     data={this.state.payments}

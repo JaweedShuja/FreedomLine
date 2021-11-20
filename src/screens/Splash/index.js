@@ -1,19 +1,49 @@
 import React from 'react'
 import {
     View,
-    Text,
-    SafeAreaView,
-    TextInput,
-    TouchableOpacity,
-    Image
+    Image,
 } from 'react-native'
 import styles from './style'
 import * as image from '../../utils/imagePath'
 import StatusBar from '../../components/StatusBar'
 import { Colors } from '../../utils/Colors'
 import {commonStyles} from '../../utils/commonStyles'
+import { connect } from 'react-redux';
+import { addUser } from '../../redux';
+import Helper from '../../utils/Helper'
+import { StackActions } from '@react-navigation/native';
 
 class Splash extends React.Component{
+    componentDidMount(){
+        this.appFlow()
+    }
+    async appFlow(){
+        let token = await Helper.getToken()
+        let user = await Helper.getUser()
+          if(token == null){
+            console.log('null')
+            this.props.addUser({
+              token:'',
+              name:'',
+              email:'',
+              id:'',
+              isLogin:false
+            })
+          }
+          else{
+            console.log('token')
+            this.props.addUser({
+              token:token,
+              name:user.name,
+              email:user.email,
+              id:user.id,
+              isLogin:true
+            })
+          }
+          this.props.navigation.dispatch(
+            StackActions.replace('AppFlow')
+        );
+      }
     render(){
         return(
             <View style={styles.container}>
@@ -21,70 +51,19 @@ class Splash extends React.Component{
                     barStyle={commonStyles.statusBarStyleDark}
                     backgroundColor={Colors.statusBarBackgroundColor_White}
                 />
-                <Image style={styles.logo}source={image.ImagePath.logo}/>
-
-                <TouchableOpacity 
-                onPress={() => this.props.navigation.navigate('Login')}
-                style={[styles.btn,{marginTop:30,}]}>
-                    <Text style={styles.btnText}>Existing Client</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.btn}>
-                    <Text style={styles.btnText}>Get a Free Qoute</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.btn}>
-                    <Text style={styles.btnText}>Contact Us</Text>
-                </TouchableOpacity>
-
-                <View style={styles.bottomTabContainer}>
-                    <View style={styles.optionRow}>
-                        <TouchableOpacity style={styles.optionBtn}>
-                            <Image style={styles.optionImage}
-                                source={image.ImagePath.home}
-                            />
-                            <View style={styles.optionLabel}>
-                                <Text style={styles.labelText}>HOME</Text>
-
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.optionBtn}>
-                            <Image style={styles.optionImage}
-                                source={image.ImagePath.tlc}
-                            />
-                            <View style={styles.optionLabel}>
-                                <Text style={styles.labelText}>TLC</Text>
-
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-
-                    <View style={[styles.optionRow,{marginTop:20}]}>
-                        <TouchableOpacity style={styles.optionBtn}>
-                            <Image style={styles.optionImage}
-                                source={image.ImagePath.auto}
-                            />
-                            <View style={styles.optionLabel}>
-                                <Text style={styles.labelText}>AUTO</Text>
-
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.optionBtn}>
-                            <Image style={styles.optionImage}
-                                source={image.ImagePath.business}
-                            />
-                            <View style={styles.optionLabel}>
-                                <Text style={styles.labelText}>BUSINESS</Text>
-
-                            </View>
-                        </TouchableOpacity>
-                    </View>
+                <View style={styles.contentContainer}>
+                    <Image style={styles.logo}source={image.ImagePath.logo}/>
                 </View>
-
-                <View style={styles.bgCircle}/>
-
-
             </View>
         )
     }
 }
 
-export default Splash
+const mapDispatchToProps = dispatch => {
+	return {
+		addUser: (payload) => dispatch(addUser(payload))
+	}
+}
+
+export default connect( null,mapDispatchToProps)(Splash);
+

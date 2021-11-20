@@ -5,7 +5,8 @@ import {
     SafeAreaView,
     TextInput,
     TouchableOpacity,
-    Image
+    Image,
+    Linking
 } from 'react-native'
 import styles from './style'
 import * as image from '../../utils/imagePath'
@@ -30,8 +31,10 @@ class Dashboard extends React.Component{
                 />
                 <TopBar 
                     title={'Dashboard'}
-                    onCardClick={() => { console.log('card') }}
-                    onLogoutClick={() => { console.log('logout')}}
+                    onCardClick={() => { 
+                        this.props.navigation.navigate('SelectPolicies')
+                    }}
+                    onLogoutClick={() => { this.props.navigation.navigate('Login')}}
                 />
 
                 <View style={styles.topCard}>
@@ -132,13 +135,21 @@ class Dashboard extends React.Component{
 
 
                 <View style={styles.bottomButton}>
-                    <TouchableOpacity style={styles.btn}>
+                    <TouchableOpacity 
+                    onPress={() => {
+                        Linking.openURL('https://freedomlinebrokerage.com/?page_id=182')
+                    }}
+                    style={styles.btn}>
                         <Text style={[styles.btnText,{
                             color:Colors.primary1
                         }]}>Get a free qoute</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={[styles.btn,{
+                    <TouchableOpacity 
+                    onPress={() => {
+                        Linking.openURL('https://freedomlinebrokerage.com/home/bg-02-free-img/')
+                    }}
+                    style={[styles.btn,{
                         backgroundColor:"#DE791E"
                     }]}>
                         <Text style={[styles.btnText,{

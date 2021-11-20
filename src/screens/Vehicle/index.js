@@ -47,7 +47,7 @@ class Vehicle extends React.Component{
                 <TopBar 
                     title={'Vehicle'}
                     onBackClick={() => { this.props.navigation.goBack() }}
-                    onHomeClick={() => { console.log('home')}}
+                    onHomeClick={() => { this.props.navigation.navigate('Dashboard')}}
                 />
                 <FlatList 
                     data={this.state.vehicle}

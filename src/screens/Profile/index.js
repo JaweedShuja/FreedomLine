@@ -43,7 +43,7 @@ class Profile extends React.Component{
                 <TopBar 
                     title={'Profile'}
                     onBackClick={() => { this.props.navigation.goBack() }}
-                    onHomeClick={() => { console.log('home')}}
+                    onHomeClick={() => { this.props.navigation.navigate('Dashboard')}}
                 />
                 <Circle/>                
 

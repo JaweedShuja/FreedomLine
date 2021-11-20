@@ -39,13 +39,13 @@ class Payments extends React.Component{
                 <TopBar 
                     title={'Payments'}
                     onBackClick={() => { this.props.navigation.goBack() }}
-                    onHomeClick={() => { console.log('home')}}
+                    onHomeClick={() => { this.props.navigation.navigate('Dashboard') }}
                 />
                 <Circle/>                
                 <View style={styles.content}>   
                     <TouchableOpacity 
                     onPress={() => {
-                        this.props.navigation.navigate('AddPayment')
+                        this.props.navigation.navigate('SelectPolicies')
                     }}
                     style={styles.payNowContainer}>
                         <MaterialIcons 
