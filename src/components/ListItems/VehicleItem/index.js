@@ -18,18 +18,18 @@ class VehicleItem extends React.Component {
                     source={image.ImagePath.car}
                 />
                 <View style={styles.detailsContainer}>
-                    <Text style={styles.nameText}>{this.props.item.name}</Text>
+                    <Text style={styles.nameText}>{this.props.item.vehName}</Text>
                     <Text style={styles.detailsText}>
-                        {`VIN # ${this.props.item.vin_no}`}
+                        {`VIN # ${this.props.item.vinNumber}`}
                     </Text>
                     <Text style={styles.detailsText}>
-                        {`Active Driver: ${this.props.item.active_driver}`}
+                        {`Active Driver: ${this.props.item.activeDrivers}`}
                     </Text>
                     <Text style={styles.detailsText}>
-                        {`Plate # ${this.props.item.plate_no}`}
+                        {`Plate # ${this.props.item.plateNumber}`}
                     </Text>
                     <Text style={styles.detailsText}>
-                        {`Reg Expiry Date: ${this.props.item.reg_expiry_date}`}
+                        {`Reg Expiry Date: ${this.props.item.expiryDate}`}
                     </Text>
                 </View>
             </View>

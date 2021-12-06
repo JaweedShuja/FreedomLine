@@ -3,8 +3,6 @@ import { View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import Introduction from '../../screens/Introduction'
-import Login from '../../screens//Login'
 import Dashboard from '../../screens//Dashboard'
 import Policies from '../../screens//Policies'
 import Invoices from '../../screens//Invoices'
@@ -25,14 +23,12 @@ const Stack = createNativeStackNavigator();
 
 function HomeFlow() {
   return (
-    <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
           headerShown:false
         }}
       >
-        <Stack.Screen name="Introduction" component={Introduction} />
-        <Stack.Screen name="Login" component={Login} />
+        
         <Stack.Screen name="Dashboard" component={Dashboard} />
         <Stack.Screen name="Policies" component={Policies} />
         <Stack.Screen name="Invoices" component={Invoices} />
@@ -50,7 +46,6 @@ function HomeFlow() {
         <Stack.Screen name="PayWithACH" component={PayWithACH} />
 
       </Stack.Navigator>
-    </NavigationContainer>
   );
 }
 

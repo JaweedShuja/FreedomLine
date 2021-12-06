@@ -15,6 +15,8 @@ class Input extends React.Component{
                     {this.props.placeholder}
                 </Text>
                 <TextInput 
+                    value={this.props.value}
+                    onChangeText={(value) => {this.props.onChangeText(value)}}
                     style={styles.input}
                 />
             </View>

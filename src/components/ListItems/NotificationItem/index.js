@@ -15,24 +15,17 @@ class NotificationItem extends React.Component{
             <View style={styles.container}>
                 <View style={{padding:10}}>
                     <Ionicons 
-                        size={40}
+                        size={30}
                         color={Colors.primary2}
                         name={'notifications'}
                     />  
                 </View>
                 <View style={{ flex:1, }}>
-                    <Text style={styles.policyNo}>{`Invoice # ${this.props.item.title}`}</Text>
-                    <Text style={[styles.policyNo,{ fontFamily:Fonts.bold }]}>{`Policy # ${this.props.item.des}`}</Text>
+                    <Text style={styles.policyNo}>{`Invoice # ${this.props.item.notification_message}`}</Text>
                     <View style={{flexDirection:'row', marginTop:10}}>
-                        <View style={{flex:1,}}>
-                            <Text style={styles.detailText}>{`Name:  ${this.props.item.name}`}</Text>
-                            <Text style={styles.detailText}>{`Policy#:  ${this.props.item.policy_no}`}</Text>
-                            <Text style={styles.detailText}>{`Past Due: ${this.props.item.past_due}`}</Text>
-                            <Text style={styles.detailText}>{`Current Due: ${this.props.item.current_due}`}</Text>
-                            <Text style={styles.detailText}>{`Total Due: ${this.props.item.total_due}`}</Text>
-                        </View>
+                        
                         <View>
-                            <Text style={styles.date}>{this.props.item.date}</Text>
+                            <Text style={styles.date}>{this.props.item.notification_date}</Text>
                         </View>
                     </View>
                 </View>
@@ -51,7 +44,8 @@ const styles = StyleSheet.create({
         alignSelf:'center',
         borderRadius:10,
         padding:10,
-        flexDirection:'row'
+        flexDirection:'row',
+        marginBottom:10
     },
     topContainer:{
         flexDirection:'row'

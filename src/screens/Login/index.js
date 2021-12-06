@@ -7,6 +7,7 @@ import {
     TouchableOpacity,
     ImageBackground,
     Linking,
+    ActivityIndicator
 } from 'react-native'
 import styles from './style'
 import * as image from '../../utils/imagePath'
@@ -26,6 +27,7 @@ class Login extends React.Component{
     constructor(props){
         super(props)
         this.state = {
+            isLoading:false,
             username:'',
             password:'',
         }
@@ -49,6 +51,9 @@ class Login extends React.Component{
             Helper.showToast(message)
         }
         else{
+            this.setState({
+                isLoading:true
+            })
             const response = await request.PostRequest(
                 payload.AuthenticatePayloads(
                     username,
@@ -56,6 +61,9 @@ class Login extends React.Component{
                 ),
                 api.AuthenticateAPI()
             )
+            this.setState({
+                isLoading:false
+            })
             if(response.status){
                 await Helper.saveToken(response.accessToken);
                 this.props.addUser({
@@ -115,12 +123,21 @@ class Login extends React.Component{
                 </TouchableOpacity>
 
                 <TouchableOpacity 
+                disabled={this.state.isLoading}
                 onPress={() => {
-                    // this.props.navigation.navigate('Dashboard')
                     this.onLogin()
                 }}
                 style={styles.btn}>
-                    <Text style={styles.btnText}>Login</Text>
+                    {
+                        this.state.isLoading
+                        ?
+                        <ActivityIndicator 
+                            color={Colors.primary1}
+                            size={'small'}
+                        />
+                        :
+                        <Text style={styles.btnText}>Login</Text>
+                    }
                 </TouchableOpacity>
 
                     <View style={styles.bottomButton}>

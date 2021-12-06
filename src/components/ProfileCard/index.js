@@ -20,7 +20,9 @@ class ProfileCard extends React.Component{
                         name={'user-alt'}
                     />
                 </View>
-                <Text style={styles.nameText}>{'Marie Kumar'}</Text>
+                <Text style={styles.nameText}>{
+                    this.props.name ? this.props.name : 'Marie Kumar'
+                }</Text>
                 <View style={styles.addressContainer}>
                     <Entypo 
                         size={15}
@@ -28,7 +30,7 @@ class ProfileCard extends React.Component{
                         name={'location'}
                     />
                     <Text style={styles.address}>
-                        7523 31 AVE,
+                        {this.props.address ? this.props.address : '7523 31 AVE'}
                     </Text>
                 </View>
             </View>

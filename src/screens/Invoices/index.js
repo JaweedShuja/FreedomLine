@@ -7,7 +7,8 @@ import {
     TouchableOpacity,
     Image,
     FlatList,
-    Linking
+    Linking,
+    ActivityIndicator
 } from 'react-native'
 import styles from './style'
 import * as image from '../../utils/imagePath'
@@ -22,21 +23,22 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import InvoiceItem from '../../components/ListItems/InvoiceItem'
+import * as api from '../../networking/api'
+import * as request from '../../networking/request'
+import * as payload from '../../networking/payload'
+import { connect } from 'react-redux';
 
 class Invoices extends React.Component{
     constructor(props){
         super(props)
         this.state = {
-            invoices:[
-                {
-                    id:"1",
-                    invoice_no:"00464374",
-                    policy_no:"Maria1",
-                    due_amount:"$567"
-                }
-            ]
+            invoices:[],
+            isLoading:false,
         }
         this.renderInvoiceItem = this.renderInvoiceItem.bind(this)
+    }
+    componentDidMount(){
+        this.getInvoices()
     }
     renderInvoiceItem({item}){
         return <InvoiceItem 
@@ -48,6 +50,22 @@ class Invoices extends React.Component{
                 Linking.openURL('http://docs.google.com/viewer?url=httml://47.21.85.156:7777')
             }}
         />  
+    }
+    compon
+    async getInvoices(){
+        this.setState({isLoading:true})
+        const response = await request.PostRequest(
+            payload.GetAllInvoicesPayloads(
+                this.props.user.id,
+            ),
+            api.GetAllInvoicesAPI()
+        )
+        this.setState({isLoading:false})
+        if(response.status == true){
+            this.setState({
+                invoices:response.data
+            })
+        }
     }
     render(){
         return(
@@ -61,6 +79,13 @@ class Invoices extends React.Component{
                     onBackClick={() => { this.props.navigation.goBack() }}
                     onHomeClick={() => { this.props.navigation.navigate('Dashboard')}}
                 />
+                {
+                    this.state.isLoading && <ActivityIndicator 
+                        size={'small'}
+                        color={Colors.primary1}
+                        style={{alignSelf:'center', marginVertical:20}}
+                    />
+                }
                 <FlatList 
                     data={this.state.invoices}
                     renderItem={this.renderInvoiceItem}
@@ -70,5 +95,9 @@ class Invoices extends React.Component{
         )
     }
 }
-
-export default Invoices
+const mapStateToProps = state => {
+	return {
+		user: state.user
+	}
+}
+export default connect( mapStateToProps,null)(Invoices);

@@ -9,6 +9,7 @@ import { Colors } from '../../../utils/Colors'
 import { Fonts } from '../../../utils/Fonts'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import { connect } from 'react-redux';
 
 class PaymentsItem extends React.Component{
     render(){
@@ -22,15 +23,14 @@ class PaymentsItem extends React.Component{
                     />  
                 </View>
                 <View style={{ flex:1, }}>
-                    <Text style={styles.policyNo}>{`${this.props.item.amount}`}</Text>
+                    <Text style={styles.policyNo}>{`$${this.props.item.paymentAmount}`}</Text>
                     <View style={{flexDirection:'row', marginTop:10}}>
                         <View style={{flex:1,}}>
-                            <Text style={styles.detailText}>{`Mode of Payment:  ${this.props.item.payment_mode}`}</Text>
-                            <Text style={styles.detailText}>{`Name:  ${this.props.item.name}`}</Text>
-                            <Text style={styles.detailText}>{`${this.props.item.payment_id}`}</Text>
+                            <Text style={styles.detailText}>{`Name:  ${this.props.user.name}`}</Text>
+                            <Text style={styles.detailText}>{`${this.props.item.PaymentMode}`}</Text>
                         </View>
                         <View>
-                            <Text style={styles.date}>{this.props.item.date}</Text>
+                            <Text style={styles.date}>{this.props.item.PaymentDate}</Text>
                         </View>
                     </View>
                 </View>
@@ -38,8 +38,12 @@ class PaymentsItem extends React.Component{
         )
     }
 }
-
-export default PaymentsItem
+const mapStateToProps = state => {
+	return {
+		user: state.user
+	}
+}
+export default connect( mapStateToProps,null)(PaymentsItem);
 
 const styles = StyleSheet.create({
     container:{
@@ -49,7 +53,8 @@ const styles = StyleSheet.create({
         alignSelf:'center',
         borderRadius:10,
         padding:10,
-        flexDirection:'row'
+        flexDirection:'row',
+        marginBottom:10,
     },
     topContainer:{
         flexDirection:'row'

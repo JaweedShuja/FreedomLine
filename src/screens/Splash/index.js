@@ -20,7 +20,8 @@ class Splash extends React.Component{
     async appFlow(){
         let token = await Helper.getToken()
         let user = await Helper.getUser()
-          if(token == null){
+        console.log(user)
+          if(token == null || user == null){
             console.log('null')
             this.props.addUser({
               token:'',

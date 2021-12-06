@@ -7,7 +7,8 @@ import {
     TouchableOpacity,
     Image,
     FlatList,
-    Modal
+    Modal,
+    ActivityIndicator
 } from 'react-native'
 import styles from './style'
 import * as image from '../../utils/imagePath'
@@ -23,19 +24,42 @@ import AntDesign from 'react-native-vector-icons/AntDesign'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import InvoiceItem from '../../components/ListItems/InvoiceItem'
 import CameraModal from './CameraModal'
+import * as api from '../../networking/api'
+import * as request from '../../networking/request'
+import * as payload from '../../networking/payload'
 
 class UploadDocuments extends React.Component{
     constructor(props){
         super(props)
         this.state = {  
-            modalVisible_Camera:false
+            isLoading:false,
+            modalVisible_Camera:false,
+            documentsType:[]
         }
         this.setModalVisible_Camera = this.setModalVisible_Camera.bind(this)
     }
     setModalVisible_Camera() {
         this.setState({modalVisible_Camera: !this.state.modalVisible_Camera});
     }
-   
+    async getDocumentsType(){
+        this.setState({
+            isLoading:true
+        })
+        const response = await request.GetRequest(
+            api.GetDocumentTypeAPI()
+        )
+        this.setState({
+            isLoading:false
+        })
+        if(response.status == true){
+            this.setState({
+                documentsType:response.data
+            })
+        }
+    }
+    componentDidMount(){
+        this.getDocumentsType()
+    }
     render(){
         return(
             <View style={styles.container}>
@@ -65,36 +89,25 @@ class UploadDocuments extends React.Component{
                         {'Select Doc Type'}
                     </Text>
                     <View style={styles.typeContainer}>
-                        <View style={styles.type}>
-                            <Text style={styles.typeText}>
-                                {'Driver license'}
-                            </Text>
-                        </View>
-                        <View style={styles.type}>
-                            <Text style={styles.typeText}>
-                                {'Passport'}
-                            </Text>
-                        </View>
-                        <View style={styles.type}>
-                            <Text style={styles.typeText}>
-                                {'ID Card'}
-                            </Text>
-                        </View>
-                        <View style={styles.type}>
-                            <Text style={styles.typeText}>
-                                {'VISA Card'}
-                            </Text>
-                        </View>
-                        <View style={styles.type}>
-                            <Text style={styles.typeText}>
-                                {'Add Driver Form'}
-                            </Text>
-                        </View>
-                        <View style={styles.type}>
-                            <Text style={styles.typeText}>
-                                {'ATIC Replacement of Vehicle'}
-                            </Text>
-                        </View>
+                        {
+                            this.state.documentsType.map(item => {
+                                return  <View style={styles.type}>
+                                    <Text style={styles.typeText}>
+                                        {item.name}
+                                    </Text>
+                                </View>
+                            })
+                        }
+                        {
+                            this.state.isLoading && <ActivityIndicator 
+                                size={'small'}
+                                color={Colors.primary1}
+                                style={{
+                                    alignSelf:'center',
+                                    marginVertical:20
+                                }}
+                            />
+                        }
                     </View>
                     <View style={styles.bottomButtonContainer}>
                         <TouchableOpacity 

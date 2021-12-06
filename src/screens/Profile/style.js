@@ -43,6 +43,14 @@ export default StyleSheet.create({
         alignSelf:'center',
         marginVertical:10,
         color:Colors.primary2
+    },
+    loadingScreen:{
+        height:'100%',
+        width:'100%',
+        position:'absolute',
+        backgroundColor:'rgba(0,0,0,0.5)',
+        alignItems:'center',
+        justifyContent:'center'
     }
     
 })

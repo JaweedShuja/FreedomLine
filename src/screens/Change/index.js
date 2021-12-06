@@ -7,7 +7,8 @@ import {
     TouchableOpacity,
     Image,
     FlatList,
-    ScrollView
+    ScrollView,
+    ActivityIndicator
 } from 'react-native'
 import styles from './style'
 import * as image from '../../utils/imagePath'
@@ -16,7 +17,7 @@ import { Colors } from '../../utils/Colors'
 import {commonStyles} from '../../utils/commonStyles'
 import Circle from '../../components/Circle'
 import TopBar from '../../components/TopBar/TopBarBackHome'
-
+import Helper from '../../utils/Helper'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import AntDesign from 'react-native-vector-icons/AntDesign'
@@ -28,20 +29,43 @@ import ProfileCard from '../../components/ProfileCard'
 import ProfileBottomOptions from '../../components/ProfileBottomOptions'
 import { Fonts } from '../../utils/Fonts'
 
-import { ChangeAddressRequestAPI } from '../../networking/api'
-import {PostRequest} from '../../networking/request'
-import {ChangeAddressRequestPayloads} from '../../networking/payload'
+import * as api from '../../networking/api'
+import * as request from '../../networking/request'
+import * as payload from '../../networking/payload'
+import { connect } from 'react-redux';
 
-
-class Profile extends React.Component{
+class Chanage extends React.Component{
     constructor(props){
         super(props)
         this.state = {
             selectedOption:"1",
-            type:this.props.route.params.type
+            type:this.props.route.params.type,
+            isLoading:false,
+
+            //change of address
+            address:'',
+            city:'',
+            zip:'',
+            state:'',
         }
     }
-    
+    async changeOfAddress(){
+        this.setState({isLoading:true})
+        const response = await request.PostRequest(
+            payload.ChangeAddressRequestPayloads(
+                this.props.user.id,
+                this.state.address,
+                this.state.city.address,
+                this.state.zip.address,
+                this.state.state.address
+            ),
+            api.ChangeAddressRequestAPI()
+        )
+        this.setState({isLoading:false})
+        if(response.status == true){
+            Helper.showToast('Change Request Has Been Sent')   
+        }
+    }
     render(){
         return(
             <View style={styles.container}>
@@ -62,24 +86,37 @@ class Profile extends React.Component{
                         {
                             this.state.type === "Address" 
                         ? <View style={{flex:1}}>
-                            <Input placeholder={'New Address'} />
-                            <Input placeholder={'Street Address'}/>
-                            <Input placeholder={'City'}/>
-                            <Input placeholder={'Zip'}/>
-                            <Input placeholder={'State'}/>
-                            <Input placeholder={'Selected files are'}/>
+                            <Input value={this.state.address}
+                                onChangeText={(value) => this.setState({address:value})}
+                                placeholder={'New Address'} />
+                            <Input value={this.state.city}
+                                onChangeText={(value) => this.setState({city:value})}
+                                placeholder={'City'}/>
+                            <Input value={this.state.zip}
+                                onChangeText={(value) => this.setState({zip:value})}
+                                placeholder={'Zip'}/>
+                            <Input value={this.state.state}
+                                onChangeText={(value) => this.setState({state:value})}
+                                placeholder={'State'}/>
                             <View style={{flexDirection:'row', justifyContent:'space-around'}}>
-                                <TouchableOpacity style={styles.updateButton}>
-                                    <Text style={styles.updateButtonText}>
-                                        Attach files
-                                    </Text>
+                                <TouchableOpacity 
+                                disabled={this.state.isLoading}
+                                onPress={() => this.changeOfAddress()}
+                                style={styles.updateButton}>
+                                    {
+                                        this.state.isLoading
+                                        ?
+                                        <ActivityIndicator 
+                                            size={'small'}
+                                            color={'white'}
+                                        />
+                                        :
+                                        <Text style={styles.updateButtonText}>
+                                            Submit
+                                        </Text>
+                                    }
                                 </TouchableOpacity>
-                                <TouchableOpacity style={styles.updateButton}>
-                                    <Text style={styles.updateButtonText}>
-                                        Submit
-                                    </Text>
-                                </TouchableOpacity>
-                                    </View>
+                            </View>
                         </View>
                         : null
                         }
@@ -160,5 +197,9 @@ class Profile extends React.Component{
         )
     }
 }
-
-export default Profile
+const mapStateToProps = state => {
+	return {
+		user: state.user
+	}
+}
+export default connect( mapStateToProps,null)(Chanage);

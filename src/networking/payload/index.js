@@ -17,15 +17,73 @@ export function AuthenticatePayloads(
 export function ChangeAddressRequestPayloads(
     client_id,
     address,
-    state,  
-    zip,    
-    city    
+    city,
+    zip,
+    state
 ){  
     return JSON.stringify({
         client_id:client_id,
         address:address,
-        state:state,
+        city:city,
         zip:zip,
-        city:city
+        state:state
+    })
+}
+
+export function GetUserProfilePayloads(
+    userId, 
+    accessToken
+){
+    return JSON.stringify({
+        userId:userId,
+        accessToken:accessToken
+    })
+}
+
+export function GetDashboardByClientIdPayloads(
+    clientId
+){
+    return JSON.stringify({
+        clientId:clientId       
+    })
+}
+
+export function GetPolicyByClientIdPayloads(
+    clientId
+){
+    return JSON.stringify({
+        clientId:clientId       
+    })
+}
+
+export function GetAllInvoicesPayloads(
+    clientId
+){
+    return JSON.stringify({
+        clientId:clientId       
+    })
+}
+
+export function GetClientDeviceNotificationsPayloads(
+    clientId
+){
+    return JSON.stringify({
+        clientId:clientId       
+    })
+}
+export function GetVehicleByPolicyAndClientIdPayloads(
+    clientId,
+    policyId
+){
+    return JSON.stringify({
+        clientId:clientId,
+        policyId:policyId,       
+    })
+}
+export function GetRecentPaymentPayloads(
+    clientId
+){
+    return JSON.stringify({
+        clientId:clientId     
     })
 }

@@ -61,6 +61,12 @@ export default StyleSheet.create({
     viewAllText:{
         fontFamily:Fonts.semiBold,
         color:Colors.primary2,
+    },
+    noVehicleText:{
+        alignSelf:'center',
+        marginVertical:20,
+        fontFamily:Fonts.regular,
+        color:Colors.primary1
     }
     
 })

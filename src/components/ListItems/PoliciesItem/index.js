@@ -23,27 +23,21 @@ class PolicyItem extends React.Component{
                         name={'policy'}
                     />
                     <View style={styles.detailsContainer}>
-                        <Text style={styles.policyNo}>{`Policy # ${this.props.item.policy_no}`}</Text>
-                        <Text style={styles.transitType}>{this.props.item.transit_type}</Text>
-                        <Text style={styles.policyType}>{`Policy Type : ${this.props.item.policy_type}`}</Text>
+                        <Text style={styles.policyNo}>{`Policy # ${this.props.item.policyNumber}`}</Text>
+                        <Text style={styles.transitType}>{this.props.item.companyName}</Text>
+                        <Text style={styles.policyType}>{`Policy Type : ${this.props.item.policyType}`}</Text>
                     </View>
                     <View style={styles.statusContainer}>
                         <View style={styles.status}>
                             <Text style={[styles.statusText,{
-                                color:this.props.item.status == 'active'
-                                ? Colors.green
-                                : Colors.red
-                            }]}>{
-                                this.props.item.status == 'active'
-                                ? "Active"
-                                : "In-Active"
-                            }</Text>
+                                color:Colors.green
+                            }]}>{this.props.item.policyStatusName}</Text>
                         </View>
                     </View>
                 </View>
                 <View style={styles.dateContainer}>
-                    <Text style={styles.date}>{`Effective Date : ${this.props.item.effective_date}`}</Text>
-                    <Text style={styles.date}>{`Expiry Date : ${this.props.item.expiry_date}`}</Text>
+                    <Text style={styles.date}>{`Effective Date : ${this.props.item.effectiveDate}`}</Text>
+                    <Text style={styles.date}>{`Expiry Date : ${this.props.item.expiryDate}`}</Text>
                 </View>
             </TouchableOpacity>
         )
@@ -87,8 +81,9 @@ const styles = StyleSheet.create({
         justifyContent:'center'
     },
     status:{
-        height:25,
-        width:80,
+        // height:25,
+        width:100,
+        padding:5,
         borderRadius:30,
         borderWidth:1,
         borderColor:Colors.red,
@@ -97,7 +92,7 @@ const styles = StyleSheet.create({
     },
     statusText:{
         fontFamily:Fonts.semiBold,
-        fontSize:12,
+        fontSize:10,
     },
     dateContainer:{
         flexDirection:'row',

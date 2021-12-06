@@ -21,9 +21,9 @@ class InvoiceItem extends React.Component{
                         name={'file-invoice'}
                     />
                     <View style={styles.detailsContainer}>
-                        <Text style={styles.policyNo}>{`Invoice # ${this.props.item.Invoice_no}`}</Text>
-                        <Text style={styles.policyNo}>{`Policy # ${this.props.item.policy_no}`}</Text>
-                        <Text style={styles.policyNo}>{`Due Amount : ${this.props.item.due_amount}`}</Text>
+                        <Text style={styles.policyNo}>{`Invoice # ${this.props.item.receiptId}`}</Text>
+                        <Text style={styles.policyNo}>{`Policy # ${this.props.item.policyNumber}`}</Text>
+                        <Text style={styles.policyNo}>{`Due Amount : $${this.props.item.invoiceAmount}`}</Text>
                         <TouchableOpacity
                         onPress={() => this.props.onViewClick()}
                         style={[styles.status,{
@@ -56,6 +56,7 @@ const styles = StyleSheet.create({
         alignSelf:'center',
         borderRadius:10,
         padding:10,
+        marginBottom:10,
     },
     topContainer:{
         flexDirection:'row'

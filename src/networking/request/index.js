@@ -1,5 +1,34 @@
 const debug = true
 
+export function GetRequest(api) {
+    try{
+        if (debug) {
+            console.log('API => ' + api)
+        }
+        return fetch(api, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Connection:'keep-alive',
+                'Accept-Encoding': 'gzip, deflate',
+            }
+        })
+            .then(response => response.json())
+            .then(responseJson => {
+                if (debug) {
+                    console.log('Response => ' + JSON.stringify(responseJson));
+                }
+                return responseJson
+            })
+            .catch(error => {
+                return error;
+            })
+    }
+    catch(e){
+        console.log(e)
+    }   
+}
 export function PostRequest(payloads, api) {
     try{
         if (debug) {

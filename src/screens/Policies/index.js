@@ -6,7 +6,8 @@ import {
     TextInput,
     TouchableOpacity,
     Image,
-    FlatList
+    FlatList,
+    ActivityIndicator
 } from 'react-native'
 import styles from './style'
 import * as image from '../../utils/imagePath'
@@ -15,21 +16,43 @@ import { Colors } from '../../utils/Colors'
 import {commonStyles} from '../../utils/commonStyles'
 import Circle from '../../components/Circle'
 import TopBar from '../../components/TopBar/TopBarBackPayment'
-
+import { connect } from 'react-redux';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import PolicyItem from '../../components/ListItems/PoliciesItem'
 import policies from '../../data/policies.json'
+import * as api from '../../networking/api'
+import * as request from '../../networking/request'
+import * as payload from '../../networking/payload'
 
 class Policies extends React.Component{
     constructor(props){
         super(props)
         this.state = {
-            policies:policies
+            policies:[],
+            isLoading:false,
         }
         this.renderPolicyItem = this.renderPolicyItem.bind(this)
+    }
+    async getPolicies(){
+        this.setState({ isLoading:true })
+        const response = await request.PostRequest(
+            payload.GetPolicyByClientIdPayloads(
+                this.props.user.id,
+            ),
+            api.GetPolicyByClientIdAPI()
+        )
+        this.setState({ isLoading:false })
+        if(response.status == true){
+            this.setState({
+                policies:response.data
+            })   
+        }
+    }
+    componentDidMount(){
+        this.getPolicies()
     }
     renderPolicyItem({item}){
         return <PolicyItem 
@@ -51,7 +74,18 @@ class Policies extends React.Component{
                     onBackClick={() => { this.props.navigation.goBack() }}
                     onCardClick={() => { this.props.navigation.navigate('SelectPolicies')}}
                 />
+                {
+                    this.state.isLoading && <ActivityIndicator 
+                        size={'small'}
+                        color={Colors.primary1}
+                        style={{
+                            alignSelf:'center',
+                            marginVertical:20
+                        }}
+                    />
+                }
                 <FlatList 
+                    contentContainerStyle={{paddingBottom:300}}
                     data={this.state.policies}
                     renderItem={this.renderPolicyItem}
                 />
@@ -62,5 +96,9 @@ class Policies extends React.Component{
         )
     }
 }
-
-export default Policies
+const mapStateToProps = state => {
+	return {
+		user: state.user
+	}
+}
+export default connect( mapStateToProps,null)(Policies);

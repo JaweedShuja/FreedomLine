@@ -6,7 +6,8 @@ import {
     TextInput,
     TouchableOpacity,
     Image,
-    FlatList
+    FlatList,
+    ActivityIndicator
 } from 'react-native'
 import styles from './style'
 import * as image from '../../utils/imagePath'
@@ -23,16 +24,43 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import InvoiceItem from '../../components/ListItems/InvoiceItem'
 import VehicleItem from '../../components/ListItems/VehicleItem'
 import vehicle from '../../data/vehicle.json'
+import { connect } from 'react-redux';
+import * as api from '../../networking/api'
+import * as request from '../../networking/request'
+import * as payload from '../../networking/payload'
 
 class PolicyDetails extends React.Component{
     constructor(props){
         super(props)
         this.state = {
             policy:this.props.route.params.policy,
-            vehicle:vehicle
+            policyDetail:{},
+            policyVehicles:[],
+            isLoading:false,
         }
         this.renderVehicleItem = this.renderVehicleItem.bind(this)
     }
+    componentDidMount(){
+        this.getPolicyDetails()
+    }
+    async getPolicyDetails(){
+        this.setState({ isLoading:true })
+        const response = await request.PostRequest(
+            payload.GetVehicleByPolicyAndClientIdPayloads(
+                this.props.user.id,
+                this.state.policy.policyId,  
+            ),
+            api.GetVehicleByPolicyAndClientIdAPI()
+        )
+        this.setState({ isLoading:false })
+        if(response.status == true){
+            this.setState({
+                policyDetail:response.data.policyDetail,
+                policyVehicles:response.data.policyVehicles,
+            })
+        }
+    }
+    
     renderVehicleItem = ({item}) => {
         return <VehicleItem 
             item={item}
@@ -52,74 +80,83 @@ class PolicyDetails extends React.Component{
                 />
                 <View style={styles.detailsContainer}>
                     <View style={styles.status}>
-                        <Text style={[styles.statusText,{
-                            color:this.state.policy.status == 'active'
-                            ? Colors.green
-                            : Colors.red
-                        }]}>{
-                            this.state.policy.status == 'active'
-                            ? "Active"
-                            : "In-Active"
-                        }</Text>
+                        <Text style={[styles.statusText,{color:Colors.green}]}>{this.state.policy.policyStatusName}</Text>
                     </View>
                     <Text style={styles.pType}>
-                        {`Policy Type: ${this.state.policy.policy_type}`}
+                        {`Policy Type: ${this.state.policy.policyType}`}
                     </Text>
                     <View style={styles.detailsRow}>
                         <Text style={styles.detailsText}>{'Policy No:'}</Text>
-                        <Text style={styles.detailsText}>{this.state.policy.policy_no}</Text>
+                        <Text style={styles.detailsText}>{this.state.policy.policyNumber}</Text>
                     </View>
                     <View style={styles.detailsRow}>
                         <Text style={styles.detailsText}>{'Effective date:'}</Text>
-                        <Text style={styles.detailsText}>{this.state.policy.effective_date}</Text>
+                        <Text style={styles.detailsText}>{this.state.policy.effectiveDate}</Text>
                     </View>
                     <View style={styles.detailsRow}>
                         <Text style={styles.detailsText}>{'Expiry date:'}</Text>
-                        <Text style={styles.detailsText}>{this.state.policy.expiry_date}</Text>
+                        <Text style={styles.detailsText}>{this.state.policy.expiryDate}</Text>
                     </View>
                     <View style={styles.detailsRow}>
                         <Text style={styles.detailsText}>{'Status:'}</Text>
-                        <Text style={styles.detailsText}>{this.state.policy.status}</Text>
+                        <Text style={styles.detailsText}>{this.state.policy.policyStatusName}</Text>
                     </View>
                     <View style={styles.detailsRow}>
-                        <Text style={styles.detailsText}>{'Total Policy Cost:'}</Text>
-                        <Text style={styles.detailsText}>{this.state.policy.total_policy_cost}</Text>
+                        <Text style={styles.detailsText}>{'Annual Premium:'}</Text>
+                        <Text style={styles.detailsText}>{this.state.policyDetail.annualPremium}</Text>
                     </View>
                     <View style={styles.detailsRow}>
-                        <Text style={styles.detailsText}>{'Paid Up to now:'}</Text>
-                        <Text style={styles.detailsText}>{this.state.policy.paid_upto_now}</Text>
+                        <Text style={styles.detailsText}>{'Total Credit:'}</Text>
+                        <Text style={styles.detailsText}>{this.state.policyDetail.totalCredit}</Text>
                     </View>
                     <View style={styles.detailsRow}>
-                        <Text style={styles.detailsText}>{'Remaining Balance:'}</Text>
-                        <Text style={styles.detailsText}>{this.state.policy.remaining_balance}</Text>
+                        <Text style={styles.detailsText}>{'Remaining Premium:'}</Text>
+                        <Text style={styles.detailsText}>{this.state.policyDetail.remainingPremium}</Text>
                     </View>
                     <View style={styles.detailsRow}>
-                        <Text style={styles.detailsText}>{'Past Due (Immediate):'}</Text>
-                        <Text style={styles.detailsText}>{this.state.policy.past_due}</Text>
+                        <Text style={styles.detailsText}>{'Due Amount:'}</Text>
+                        <Text style={styles.detailsText}>{this.state.policyDetail.dueAmount}</Text>
                     </View>
                     <View style={styles.detailsRow}>
-                        <Text style={styles.detailsText}>{'Current Due(10/20/2021):'}</Text>
-                        <Text style={styles.detailsText}>{this.state.policy.current_due}</Text>
+                        <Text style={styles.detailsText}>{'Past Due:'}</Text>
+                        <Text style={styles.detailsText}>{this.state.policyDetail.pastDue}</Text>
+                    </View>
+                    <View style={styles.detailsRow}>
+                        <Text style={styles.detailsText}>{`Current Due(${this.state.policyDetail.current_due_date}):`}</Text>
+                        <Text style={styles.detailsText}>{this.state.policyDetail.currentDue}</Text>
                     </View>
                     <View style={styles.detailsRow}>
                         <Text style={styles.detailsText}>{'Total Due:'}</Text>
-                        <Text style={styles.detailsText}>{this.state.policy.total_due}</Text>
+                        <Text style={styles.detailsText}>{this.state.policyDetail.totalDue}</Text>
                     </View>
+                    
                 </View>
                 <View style={styles.vehicleTitleContainer}>
                     <Text style={styles.vehicleText}>
                         {'Vehicles & Drivers'}
                     </Text>
-                    <TouchableOpacity
-                        onPress={() => {
-                            this.props.navigation.navigate(('Vehicle'))
-                        }}
-                    >
-                        <Text style={styles.viewAllText}>View All</Text>
-                    </TouchableOpacity>
                 </View>
+                {
+                    this.state.isLoading && <ActivityIndicator 
+                        size={'small'}
+                        color={Colors.primary1}
+                        style={{
+                            alignSelf:'center',
+                            marginVertical:20
+                        }}
+                    />
+                }
+                {
+                    this.state.isLoading == false && this.state.policyVehicles.length == 0
+                    ? <Text style={styles.noVehicleText}>
+                        {'No Vehicles'}
+                    </Text>
+                    :
+                    null
+
+                }
                 <FlatList 
-                    data={this.state.vehicle}
+                    data={this.state.policyVehicles}
                     renderItem={this.renderVehicleItem}
                 />
                
@@ -128,5 +165,9 @@ class PolicyDetails extends React.Component{
         )
     }
 }
-
-export default PolicyDetails
+const mapStateToProps = state => {
+	return {
+		user: state.user
+	}
+}
+export default connect( mapStateToProps,null)(PolicyDetails);

@@ -6,7 +6,8 @@ import {
     TextInput,
     TouchableOpacity,
     Image,
-    FlatList
+    FlatList,
+    ActivityIndicator
 } from 'react-native'
 import styles from './style'
 import * as image from '../../utils/imagePath'
@@ -20,14 +21,51 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import InvoiceItem from '../../components/ListItems/InvoiceItem'
+import PaymentsItem from '../../components/ListItems/PaymentsItem'
+import * as api from '../../networking/api'
+import * as request from '../../networking/request'
+import * as payload from '../../networking/payload'
+import { connect } from 'react-redux';
 
-class Payments extends React.Component{
+class RecentPayments extends React.Component{
     constructor(props){
         super(props)
         this.state = {
-            
+            payments:[
+                // {
+                //     amount:"$26",
+                //     payment_mode:"Credit Card",
+                //     name:"Marie Kumar",
+                //     payment_id:"Cash-00000222",
+                //     date:"12/12/2019",
+                // }
+            ],
+            isLoading:false,
         }
+        this.renderPaymentItem = this.renderPaymentItem.bind(this)
+    }
+    async getRecentPayments(){
+        this.setState({isLoading:true})
+        const response = await request.PostRequest(
+            payload.GetRecentPaymentPayloads(
+                this.props.user.id,
+            ),
+            api.GetRecentPaymentAPI()
+        )
+        this.setState({isLoading:false})
+        if(response.status == true){
+            this.setState({
+                payments:response.data
+            })
+        }
+    }
+    componentDidMount(){
+        this.getRecentPayments()
+    }
+    renderPaymentItem({item}){
+        return <PaymentsItem 
+            item={item}
+        />  
     }
     render(){
         return(
@@ -37,40 +75,30 @@ class Payments extends React.Component{
                     backgroundColor={Colors.statusBarBackgroundColor_White}
                 />
                 <TopBar 
-                    title={'Payments'}
+                    title={'Recent Payments'}
                     onBackClick={() => { this.props.navigation.goBack() }}
-                    onHomeClick={() => { this.props.navigation.navigate('Dashboard') }}
+                    onHomeClick={() => { this.props.navigation.navigate('Dashboard')}}
+                />
+                {
+                    this.state.isLoading && <ActivityIndicator 
+                        size={'small'}
+                        color={Colors.primary1}
+                        style={{alignSelf:'center', marginVertical:20}}
+                    />
+                }
+                <FlatList 
+                    contentContainerStyle={{paddingBottom:300}}
+                    data={this.state.payments}
+                    renderItem={this.renderPaymentItem}
                 />
                 <Circle/>                
-                <View style={styles.content}>   
-                    <TouchableOpacity 
-                    onPress={() => {
-                        this.props.navigation.navigate('SelectPolicies')
-                    }}
-                    style={styles.payNowContainer}>
-                        <MaterialIcons 
-                            size={50}
-                            color={'white'}
-                            name={'payments'}
-                        />
-                        <Text style={styles.payNowText}>Pay Now</Text>
-                    </TouchableOpacity> 
-                    <TouchableOpacity 
-                    onPress={() => {
-                        this.props.navigation.navigate('RecentPayments')
-                    }} 
-                    style={styles.recentContainer}>
-                        <FontAwesome5 
-                            size={50}
-                            color={Colors.primary2}
-                            name={'file-invoice'}
-                        />
-                        <Text style={styles.recentPayment}>Recent Payments</Text>
-                    </TouchableOpacity>
-                </View>
             </View>
         )
     }
 }
-
-export default Payments
+const mapStateToProps = state => {
+	return {
+		user: state.user
+	}
+}
+export default connect( mapStateToProps,null)(RecentPayments);

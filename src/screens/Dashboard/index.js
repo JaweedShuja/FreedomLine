@@ -20,8 +20,42 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import { addUser } from '../../redux'
+import { connect } from 'react-redux';
+import Helper from '../../utils/Helper'
+import * as api from '../../networking/api'
+import * as request from '../../networking/request'
+import * as payload from '../../networking/payload'
 
 class Dashboard extends React.Component{
+    constructor(props){
+        super(props)
+        this.state = {
+            dueAmount:0,
+            activePolicies:0,
+            pendingCancelation:0,
+            cancelled:0,
+        }
+    }
+    async getDashboard(){
+        const response = await request.PostRequest(
+            payload.GetDashboardByClientIdPayloads(
+                this.props.user.id,
+            ),
+            api.GetDashboardByClientIdAPI()
+        )
+        if(response.status == true){
+            this.setState({
+                dueAmount:response.data.dueAmount,
+                activePolicies:response.data.activePolicies,
+                pendingCancelation:response.data.pendingCancelation,
+                cancelled:response.data.cancelled,
+            })
+        }
+    }
+    componentDidMount(){
+        this.getDashboard()
+    }
     render(){
         return(
             <View style={styles.container}>
@@ -34,24 +68,34 @@ class Dashboard extends React.Component{
                     onCardClick={() => { 
                         this.props.navigation.navigate('SelectPolicies')
                     }}
-                    onLogoutClick={() => { this.props.navigation.navigate('Login')}}
+                    onLogoutClick={() => { 
+                        Helper.saveToken('')
+                        Helper.saveUser(null)
+                        this.props.addUser({
+                            token:'',
+                            name:'',
+                            email:'',
+                            id:'',
+                            isLogin:false
+                          })
+                    }}
                 />
 
                 <View style={styles.topCard}>
                     <Text style={styles.dueAmount}>Due Amount</Text>
-                    <Text style={styles.amountText}>{'$428.0'}</Text>
+                    <Text style={styles.amountText}>{`$${this.state.dueAmount}`}</Text>
                     <View style={styles.cardOptionRow}>
                         <View style={styles.cardOption}>
                             <Text style={styles.optionTitle}>{'Active Policies'}</Text>
-                            <Text style={styles.optionDes}>{2}</Text>
+                            <Text style={styles.optionDes}>{this.state.activePolicies}</Text>
                         </View>
                         <View style={styles.cardOption}>
                             <Text style={styles.optionTitle}>{'Pending Cancellation'}</Text>
-                            <Text style={styles.optionDes}>{0}</Text>
+                            <Text style={styles.optionDes}>{this.state.pendingCancelation}</Text>
                         </View>
                         <View style={styles.cardOption}>
                             <Text style={styles.optionTitle}>{'Cancelled Policies'}</Text>
-                            <Text style={styles.optionDes}>{0}</Text>
+                            <Text style={styles.optionDes}>{this.state.cancelled}</Text>
                         </View>
                     </View>
                 </View>
@@ -164,4 +208,15 @@ class Dashboard extends React.Component{
     }
 }
 
-export default Dashboard
+const mapStateToProps = state => {
+	return {
+		user: state.user
+	}
+}
+const mapDispatchToProps = dispatch => {
+	return {
+		addUser: (payload) => dispatch(addUser(payload))
+	}
+}
+
+export default connect( mapStateToProps,mapDispatchToProps)(Dashboard);

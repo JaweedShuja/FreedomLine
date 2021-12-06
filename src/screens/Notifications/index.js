@@ -6,7 +6,8 @@ import {
     TextInput,
     TouchableOpacity,
     Image,
-    FlatList
+    FlatList,
+    ActivityIndicator
 } from 'react-native'
 import styles from './style'
 import * as image from '../../utils/imagePath'
@@ -21,26 +22,41 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import NotificationItem from '../../components/ListItems/NotificationItem'
+import * as api from '../../networking/api'
+import * as request from '../../networking/request'
+import * as payload from '../../networking/payload'
+import { connect } from 'react-redux';
 
 class Notifications extends React.Component{
     constructor(props){
         super(props)
         this.state = {
-            notifications:[
-                {
-                    id:"1",
-                    title:"ADCAP BROKERAGE INC",
-                    des:"ADCAP BROKERAGE CLIENT:",
-                    name:"Marie Kumar",
-                    policy_no:"test123",
-                    past_due:"$335",
-                    current_due:"$420",
-                    total_due:"$755",
-                    date:"12/12/2019",
-                }
-            ]
+            notifications:[],
+            isLoading:false,
         }
         this.renderNotificationItem = this.renderNotificationItem.bind(this)
+    }
+    componentDidMount(){
+        this.getNotifications()
+    }
+    async getNotifications(){
+        this.setState({
+            isLoading:true
+        })
+        const response = await request.PostRequest(
+            payload.GetClientDeviceNotificationsPayloads(
+                this.props.user.id,
+            ),
+            api.GetClientDeviceNotificationsAPI()
+        )
+        this.setState({
+            isLoading:false
+        })
+        if(response.status == true){
+            this.setState({
+                notifications:response.data  
+            })
+        }
     }
     renderNotificationItem({item}){
         return <NotificationItem 
@@ -65,7 +81,18 @@ class Notifications extends React.Component{
                     onBackClick={() => { this.props.navigation.goBack() }}
                     onHomeClick={() => { this.props.navigation.navigate('Dashboard')}}
                 />
+                {
+                    this.state.isLoading && <ActivityIndicator 
+                        size={'small'}
+                        color={Colors.primary1}
+                        style={{
+                            alignSelf:'center',
+                            marginVertical:20
+                        }}
+                    />
+                }
                 <FlatList 
+                    contentContainerStyle={{paddingBottom:300}}
                     data={this.state.notifications}
                     renderItem={this.renderNotificationItem}
                 />
@@ -75,4 +102,9 @@ class Notifications extends React.Component{
     }
 }
 
-export default Notifications
+const mapStateToProps = state => {
+	return {
+		user: state.user
+	}
+}
+export default connect( mapStateToProps,null)(Notifications);
