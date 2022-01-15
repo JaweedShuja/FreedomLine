@@ -17,6 +17,8 @@ const GetPolicyByClientId = 'getPolicyByClientId'
 const GetAllInvoices = 'getAllInvoices'
 const GetClientDeviceNotifications = 'GetClientDeviceNotifications'
 const GetVehicleByPolicyAndClientId = 'getVehicleByPolicyAndClientId'
+const GetDriverByPolicyAndVehicleId = 'getDriverByPolicyAndVehicleId'
+
 const GetRecentPayment = 'getRecentPayment'
 
 function getFullApi(subDomain, endPoint) {
@@ -46,6 +48,9 @@ export function GetClientDeviceNotificationsAPI(){
 }
 export function GetVehicleByPolicyAndClientIdAPI(){
     return getFullApi(Client, GetVehicleByPolicyAndClientId)
+}
+export function GetDriverByPolicyAndVehicleIdAPI(){
+    return getFullApi(Client, GetDriverByPolicyAndVehicleId)
 }
 
 //INVOICE

@@ -13,6 +13,7 @@ import * as image from '../../utils/imagePath'
 import StatusBar from '../../components/StatusBar'
 import { Colors } from '../../utils/Colors'
 import {commonStyles} from '../../utils/commonStyles'
+import { Fonts } from '../../utils/Fonts'
 
 class Introduction extends React.Component{
     render(){
@@ -43,54 +44,183 @@ class Introduction extends React.Component{
                     style={styles.btn}>
                     <Text style={styles.btnText}>Contact Us</Text>
                 </TouchableOpacity>
-
-                <View style={styles.bottomTabContainer}>
-                    <View style={styles.optionRow}>
-                        <TouchableOpacity style={styles.optionBtn}>
-                            <Image style={styles.optionImage}
-                                source={image.ImagePath.home}
-                            />
-                            <View style={styles.optionLabel}>
-                                <Text style={styles.labelText}>HOME</Text>
+                <View style={{
+                    flex:1,
+                    margin:20,
+                    flexDirection:'row'
+                }}>
+                    <View style={{ flex:1, }}>
+                        <View style={{
+                            flex:1.7,
+                            borderWidth:2,
+                            margin:10,
+                            borderColor:Colors.primary2,
+                            borderRadius:10,
+                        }}>
+                            <View style={{flex:1,}}>
+                                <Image style={{
+                                    height:'100%',
+                                    width:'100%',
+                                    borderTopRightRadius:8,
+                                    borderTopLeftRadius:8,
+                                }}
+                                
+                                    source={image.ImagePath.auto}
+                                />
+                            </View>
+                            <View style={{
+                                height:40,
+                                backgroundColor:Colors.primary2,
+                                borderBottomLeftRadius:5,
+                                borderBottomRightRadius:5,
+                                alignItems:'center',
+                                justifyContent:'center'
+                            }}>
+                                <Text style={{
+                                    fontFamily:Fonts.bold,
+                                    color:Colors.primary1,
+                                }}>
+                                    {'TLC'}  
+                                </Text>
 
                             </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.optionBtn}>
-                            <Image style={styles.optionImage}
-                                source={image.ImagePath.tlc}
-                            />
-                            <View style={styles.optionLabel}>
-                                <Text style={styles.labelText}>TLC</Text>
 
-                            </View>
-                        </TouchableOpacity>
+                        </View>
+                        <View style={{
+                            height:3,
+                            width:'60%',
+                            borderRadius:10,
+                            backgroundColor:Colors.primary1,
+                            alignSelf:'center'
+                        }}/>
+                        <View style={{
+                            flex:1.3,
+                            borderWidth:2,
+                            margin:10,
+                            borderColor:Colors.primary2,
+                            borderRadius:10,
+                        }}>
+                            <View style={{flex:1,}}>
+                            <Image style={{
+                                    height:'100%',
+                                    width:'100%',
+                                    borderTopRightRadius:8,
+                                    borderTopLeftRadius:8,
+                                }}
+                                
+                                    source={image.ImagePath.tlc}
+                                />
+                                </View>
+                                <View style={{
+                                    height:40,
+                                    backgroundColor:Colors.primary2,
+                                    borderBottomLeftRadius:5,
+                                    borderBottomRightRadius:5,
+                                    alignItems:'center',
+                                    justifyContent:'center'
+                                }}>
+                                    <Text style={{
+                                        fontFamily:Fonts.bold,
+                                        color:Colors.primary1,
+                                    }}>
+                                        {'AUTO'}  
+                                    </Text>
+    
+                                </View>
+                            
+
+                        </View>
+
                     </View>
+                    <View style={{
+                        height:'80%',
+                        width:3,
+                        borderRadius:10,
+                        backgroundColor:Colors.primary1,
+                        alignSelf:'center'
+                    }}/>
+                    <View style={{ flex:1, }}>
+                        <View style={{
+                            flex:1.3,
+                            borderWidth:2,
+                            margin:10,
+                            borderColor:Colors.primary2,
+                            borderRadius:10,
+                        }}>
+                            <View style={{flex:1,}}>
+                            <Image style={{
+                                    height:'100%',
+                                    width:'100%',
+                                    borderTopRightRadius:8,
+                                    borderTopLeftRadius:8,
+                                }}
+                                
+                                    source={image.ImagePath.business}
+                                />
+                                </View>
+                                <View style={{
+                                    height:40,
+                                    backgroundColor:Colors.primary2,
+                                    borderBottomLeftRadius:5,
+                                    borderBottomRightRadius:5,
+                                    alignItems:'center',
+                                    justifyContent:'center'
+                                }}>
+                                    <Text style={{
+                                        fontFamily:Fonts.bold,
+                                        color:Colors.primary1,
+                                    }}>
+                                        {'BUSINESS'}  
+                                    </Text>
+    
+                                </View>
+                            
 
-                    <View style={[styles.optionRow,{marginTop:20}]}>
-                        <TouchableOpacity style={styles.optionBtn}>
-                            <Image style={styles.optionImage}
-                                source={image.ImagePath.auto}
-                            />
-                            <View style={styles.optionLabel}>
-                                <Text style={styles.labelText}>AUTO</Text>
-
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.optionBtn}>
-                            <Image style={styles.optionImage}
-                                source={image.ImagePath.business}
-                            />
-                            <View style={styles.optionLabel}>
-                                <Text style={styles.labelText}>BUSINESS</Text>
-
-                            </View>
-                        </TouchableOpacity>
+                        </View>
+                        <View style={{
+                            height:3,
+                            width:'60%',
+                            borderRadius:10,
+                            backgroundColor:Colors.primary1,
+                            alignSelf:'center'
+                        }}/>
+                        <View style={{
+                            flex:1.7,
+                            borderWidth:2,
+                            margin:10,
+                            borderColor:Colors.primary2,
+                            borderRadius:10,
+                        }}>
+                            <View style={{flex:1,}}>
+                            <Image style={{
+                                    height:'100%',
+                                    width:'100%',
+                                    borderTopRightRadius:8,
+                                    borderTopLeftRadius:8,
+                                }}
+                                
+                                    source={image.ImagePath.home}
+                                />
+                                </View>
+                                <View style={{
+                                    height:40,
+                                    backgroundColor:Colors.primary2,
+                                    borderBottomLeftRadius:5,
+                                    borderBottomRightRadius:5,
+                                    alignItems:'center',
+                                    justifyContent:'center'
+                                }}>
+                                    <Text style={{
+                                        fontFamily:Fonts.bold,
+                                        color:Colors.primary1,
+                                    }}>
+                                        {'HOME'}  
+                                    </Text>
+    
+                                </View>
+                        </View>
                     </View>
                 </View>
-
-                <View style={styles.bgCircle}/>
-
-
             </View>
         )
     }

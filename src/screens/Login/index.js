@@ -7,14 +7,15 @@ import {
     TouchableOpacity,
     ImageBackground,
     Linking,
-    ActivityIndicator
+    ActivityIndicator,
+    ScrollView
 } from 'react-native'
 import styles from './style'
 import * as image from '../../utils/imagePath'
 import StatusBar from '../../components/StatusBar'
 import { Colors } from '../../utils/Colors'
 import {commonStyles} from '../../utils/commonStyles'
-
+import Entypo from 'react-native-vector-icons/Entypo'
 import * as api from '../../networking/api'
 import * as request from '../../networking/request'
 import * as payload from '../../networking/payload'
@@ -30,6 +31,7 @@ class Login extends React.Component{
             isLoading:false,
             username:'',
             password:'',
+            isSecure:true,
         }
     }
     async onLogin(){
@@ -96,73 +98,96 @@ class Login extends React.Component{
                     barStyle={commonStyles.statusBarStyleLight}
                     backgroundColor={Colors.primary2}
                 />
-                <View style={styles.lognView}>
-                    <Text style={styles.login}>Sign In</Text>
-                </View>
+                    
+                    <View style={styles.lognView}>
+                        <Text style={styles.login}>Sign In</Text>
+                    </View>
 
-                <Text style={styles.inputTitle}>
-                    Username
-                </Text>
-                <TextInput
-                    value={this.state.username}
-                    onChangeText={(username) => this.setState({username})}
-                    style={styles.input}
-                />
+                    <Text style={styles.inputTitle}>
+                        Username
+                    </Text>
+                    <TextInput
+                        value={this.state.username}
+                        onChangeText={(username) => this.setState({username})}
+                        style={[styles.input,{marginRight:50,}]}
+                    />
 
-                <Text style={styles.inputTitle}>
-                    Password
-                </Text>
-                <TextInput
-                    value={this.state.password}
-                    onChangeText={(password) => this.setState({password})}
-                    style={styles.input}
-                />
-
-                <TouchableOpacity>
-                    <Text style={styles.forgotPassword}>Forgot Password?</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity 
-                disabled={this.state.isLoading}
-                onPress={() => {
-                    this.onLogin()
-                }}
-                style={styles.btn}>
-                    {
-                        this.state.isLoading
-                        ?
-                        <ActivityIndicator 
-                            color={Colors.primary1}
-                            size={'small'}
+                    <Text style={styles.inputTitle}>
+                        Password
+                    </Text>
+                    <View style={{flexDirection:'row'}}>
+                        <TextInput
+                            secureTextEntry={this.state.isSecure}
+                            value={this.state.password}
+                            onChangeText={(password) => this.setState({password})}
+                            style={[styles.input,{flex:1}]}
                         />
-                        :
-                        <Text style={styles.btnText}>Login</Text>
-                    }
-                </TouchableOpacity>
-
-                    <View style={styles.bottomButton}>
                         <TouchableOpacity 
                         onPress={() => {
-                            Linking.openURL('https://freedomlinebrokerage.com/?page_id=182')
-                        }}
-                        style={styles.btn}>
-                            <Text style={[styles.btnText,{
-                                color:Colors.primary1
-                            }]}>Get a free qoute</Text>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity 
-                        onPress={() => {
-                            Linking.openURL('https://freedomlinebrokerage.com/home/bg-02-free-img/')
-                        }}
-                        style={[styles.btn,{
-                            backgroundColor:"#DE791E"
-                        }]}>
-                            <Text style={[styles.btnText,{
-                                color:Colors.white
-                            }]}>Contact Us</Text>
+                            this.setState({
+                                isSecure:!this.state.isSecure
+                            })
+                        }} 
+                        style={{
+                            height:50,
+                            width:50,
+                            alignItems:'center',
+                            justifyContent:'center',
+                        }}>
+                            <Entypo 
+                                size={20}
+                                name={this.state.isSecure ? 'eye-with-line' : 'eye'}
+                                color={'white'}
+                            />
                         </TouchableOpacity>
                     </View>
+
+                    <TouchableOpacity>
+                        <Text style={styles.forgotPassword}>Forgot Password?</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity 
+                    disabled={this.state.isLoading}
+                    onPress={() => {
+                        this.onLogin()
+                    }}
+                    style={styles.btn}>
+                        {
+                            this.state.isLoading
+                            ?
+                            <ActivityIndicator 
+                                color={Colors.primary1}
+                                size={'small'}
+                            />
+                            :
+                            <Text style={styles.btnText}>Login</Text>
+                        }
+                    </TouchableOpacity>
+
+                        <View style={styles.bottomButton}>
+                            <TouchableOpacity 
+                            onPress={() => {
+                                Linking.openURL('https://freedomlinebrokerage.com/?page_id=182')
+                            }}
+                            style={styles.btn}>
+                                <Text style={[styles.btnText,{
+                                    color:Colors.primary1
+                                }]}>Get a free qoute</Text>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity 
+                            onPress={() => {
+                                Linking.openURL('https://freedomlinebrokerage.com/home/bg-02-free-img/')
+                            }}
+                            style={[styles.btn,{
+                                backgroundColor:"#DE791E"
+                            }]}>
+                                <Text style={[styles.btnText,{
+                                    color:Colors.white
+                                }]}>Contact Us</Text>
+                            </TouchableOpacity>
+                        </View>
+                        
             </ImageBackground>
         )
     }

@@ -9,24 +9,24 @@ export default StyleSheet.create({
         
     },
     lognView:{
-        marginTop:30,
+        marginTop:20,
         borderBottomWidth:1,
-        paddingBottom:20,
+        paddingBottom:10,
         marginLeft:20,
-        width:'50%',
+        width:'40%',
         borderColor:Colors.white
     },  
     login:{
         fontFamily:Fonts.bold,
-        fontSize:32,
+        fontSize:24,
         color:Colors.primary1,
     },
     inputTitle:{
-        fontSize:16,
         fontFamily:Fonts.bold,
         color:Colors.white,
-        marginTop:15,
+        marginTop:10,
         marginLeft:20,
+        fontSize:15
     },
     input:{
         borderBottomWidth:1,
@@ -44,7 +44,7 @@ export default StyleSheet.create({
         fontSize:16,
         color:Colors.primary1,
         marginLeft:20,
-        marginTop:20
+        marginTop:15
     },
     btn:{
         height:45,
@@ -52,7 +52,7 @@ export default StyleSheet.create({
         borderRadius:10,
         backgroundColor:Colors.white,
         alignSelf:'center',
-        marginTop:40,
+        marginTop:30,
         alignItems:'center',
         justifyContent:'center'
     },

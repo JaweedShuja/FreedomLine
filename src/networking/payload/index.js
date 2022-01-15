@@ -80,6 +80,17 @@ export function GetVehicleByPolicyAndClientIdPayloads(
         policyId:policyId,       
     })
 }
+export function GetDriverByPolicyAndVehicleIdPayloads(
+    vehicleId,
+    policyId
+){
+    return JSON.stringify({
+        vehicleId:vehicleId,
+        policyId:policyId,       
+    })
+}
+
+
 export function GetRecentPaymentPayloads(
     clientId
 ){

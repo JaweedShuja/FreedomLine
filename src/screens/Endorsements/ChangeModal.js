@@ -33,11 +33,11 @@ confidence, Please contact the
 office.`}
                     </Text>
                     <View style={styles.bottomButtonContainer}>
-                        <TouchableOpacity 
+                        {/* <TouchableOpacity 
                         onPress={() => this.props.modalVisible()}
                         style={styles.bottomButton}>
                             <Text style={styles.bottomText}>{'Download'}</Text>
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
                         <TouchableOpacity 
                         onPress={() => this.props.onContinue()}
                         style={styles.bottomButton}>

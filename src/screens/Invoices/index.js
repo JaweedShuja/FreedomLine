@@ -8,7 +8,8 @@ import {
     Image,
     FlatList,
     Linking,
-    ActivityIndicator
+    ActivityIndicator,
+    RefreshControl
 } from 'react-native'
 import styles from './style'
 import * as image from '../../utils/imagePath'
@@ -27,6 +28,7 @@ import * as api from '../../networking/api'
 import * as request from '../../networking/request'
 import * as payload from '../../networking/payload'
 import { connect } from 'react-redux';
+import { Fonts } from '../../utils/Fonts'
 
 class Invoices extends React.Component{
     constructor(props){
@@ -34,6 +36,7 @@ class Invoices extends React.Component{
         this.state = {
             invoices:[],
             isLoading:false,
+            refreshing:false,
         }
         this.renderInvoiceItem = this.renderInvoiceItem.bind(this)
     }
@@ -44,10 +47,12 @@ class Invoices extends React.Component{
         return <InvoiceItem 
             item={item}
             onPayClick={() => {
-                this.props.navigation.navigate('SelectPolicies')
+                // this.props.navigation.navigate('SelectPolicies')
+                console.log(item)
             }}
             onViewClick={() => {
-                Linking.openURL('http://docs.google.com/viewer?url=httml://47.21.85.156:7777')
+                console.log(item)
+                // Linking.openURL('http://docs.google.com/viewer?url=httml://47.21.85.156:7777')
             }}
         />  
     }
@@ -86,7 +91,29 @@ class Invoices extends React.Component{
                         style={{alignSelf:'center', marginVertical:20}}
                     />
                 }
+                {
+                !this.state.refreshing && <Text style={{
+                    marginVertical:10,
+                    fontSize:12,
+                    alignSelf:'center',
+                    fontFamily:Fonts.regular
+                }}>{'Pull down to Refrest'}</Text>
+                }
                 <FlatList 
+                    refreshControl={<RefreshControl
+                        refreshing={this.state.refreshing}
+                        onRefresh={async () => {
+                            this.setState({
+                                refreshing:true,
+                                invoices:[]
+                            })
+                            await this.getInvoices()
+                            this.setState({
+                                refreshing:false
+                            })
+
+                        }}
+                      />}
                     data={this.state.invoices}
                     renderItem={this.renderInvoiceItem}
                 />

@@ -16,14 +16,14 @@ class TopBar extends React.Component{
                 <Text style={styles.title}>
                     {this.props.title}
                 </Text>
-                <TouchableOpacity 
+                {/* <TouchableOpacity 
                 onPress={() => this.props.onCardClick()}
                 style={[styles.button,{ right:50 }]}>
                     <AntDesign 
                         size={20}
                         name={'creditcard'}
                     />
-                </TouchableOpacity>
+                </TouchableOpacity> */}
                 <TouchableOpacity 
                 onPress={() => this.props.onLogoutClick()}
                 style={[styles.button,{ right:0, }]}>

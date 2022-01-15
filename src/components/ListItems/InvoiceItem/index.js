@@ -21,9 +21,18 @@ class InvoiceItem extends React.Component{
                         name={'file-invoice'}
                     />
                     <View style={styles.detailsContainer}>
-                        <Text style={styles.policyNo}>{`Invoice # ${this.props.item.receiptId}`}</Text>
-                        <Text style={styles.policyNo}>{`Policy # ${this.props.item.policyNumber}`}</Text>
-                        <Text style={styles.policyNo}>{`Due Amount : $${this.props.item.invoiceAmount}`}</Text>
+                        <Text style={styles.policyNo}>
+                            <Text>{'Invoice # '}</Text>
+                            <Text style={{fontFamily:Fonts.semiBold}}>{this.props.item.receiptId}</Text>
+                        </Text>
+                        <Text style={styles.policyNo}>
+                            <Text>{'Policy # '}</Text>
+                            <Text style={{fontFamily:Fonts.semiBold}}>{this.props.item.policyNumber}</Text>
+                        </Text>
+                        <Text style={styles.policyNo}>
+                            <Text>{'Due Amount : $'}</Text>
+                            <Text style={{fontFamily:Fonts.semiBold}}>{this.props.item.invoiceAmount}</Text>
+                        </Text>
                         <TouchableOpacity
                         onPress={() => this.props.onViewClick()}
                         style={[styles.status,{
@@ -68,7 +77,6 @@ const styles = StyleSheet.create({
     policyNo:{
         fontFamily:Fonts.regular,
         color:Colors.primary2,
-        fontSize:16
     },
     transitType:{
         fontFamily:Fonts.regular,

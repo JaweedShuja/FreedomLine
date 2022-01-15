@@ -72,7 +72,7 @@ class Policies extends React.Component{
                 <TopBar 
                     title={'Policies'}
                     onBackClick={() => { this.props.navigation.goBack() }}
-                    onCardClick={() => { this.props.navigation.navigate('SelectPolicies')}}
+                    onCardClick={() => { this.props.navigation.navigate('Invoices')}}
                 />
                 {
                     this.state.isLoading && <ActivityIndicator 

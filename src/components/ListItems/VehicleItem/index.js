@@ -3,7 +3,8 @@ import {
     View,
     Text,
     StyleSheet,
-    Image
+    Image,
+    TouchableOpacity
 } from 'react-native'
 import { Colors } from '../../../utils/Colors'
 import { Fonts } from '../../../utils/Fonts'
@@ -12,7 +13,9 @@ import * as image from '../../../utils/imagePath'
 class VehicleItem extends React.Component {
     render() {
         return(
-            <View style={styles.container}>
+            <TouchableOpacity 
+            onPress={this.props.onPress}
+            style={styles.container}>
                 <Image 
                     style={styles.iamgeContainer}
                     source={image.ImagePath.car}
@@ -20,19 +23,31 @@ class VehicleItem extends React.Component {
                 <View style={styles.detailsContainer}>
                     <Text style={styles.nameText}>{this.props.item.vehName}</Text>
                     <Text style={styles.detailsText}>
-                        {`VIN # ${this.props.item.vinNumber}`}
+                        <Text>{'VIN # '}</Text>
+                        <Text style={{fontFamily:Fonts.semiBold}}>{this.props.item.vinNumber}</Text>
                     </Text>
                     <Text style={styles.detailsText}>
-                        {`Active Driver: ${this.props.item.activeDrivers}`}
+                        <Text>{'Active Driver : '}</Text>
+                        <Text style={{fontFamily:Fonts.semiBold}}>{this.props.item.activeDrivers}</Text>
                     </Text>
                     <Text style={styles.detailsText}>
-                        {`Plate # ${this.props.item.plateNumber}`}
+                        <Text>{'Plate # '}</Text>
+                        <Text style={{fontFamily:Fonts.semiBold}}>{this.props.item.plateNumber}</Text>
                     </Text>
                     <Text style={styles.detailsText}>
-                        {`Reg Expiry Date: ${this.props.item.expiryDate}`}
+                        <Text>{'Reg Expiry Date : '}</Text>
+                        <Text style={{fontFamily:Fonts.semiBold}}>{this.props.item.expiryDate}</Text>
+                    </Text>
+                    <Text style={styles.detailsText}>
+                        <Text>{'Model : '}</Text>
+                        <Text style={{fontFamily:Fonts.semiBold}}>{this.props.item.model}</Text>
+                    </Text>
+                    <Text style={styles.detailsText}>
+                        <Text>{'Company : '}</Text>
+                        <Text style={{fontFamily:Fonts.semiBold}}>{this.props.item.companyName}</Text>
                     </Text>
                 </View>
-            </View>
+            </TouchableOpacity>
         )
     }
 }

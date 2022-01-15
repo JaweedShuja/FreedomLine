@@ -28,6 +28,7 @@ import { connect } from 'react-redux';
 import * as api from '../../networking/api'
 import * as request from '../../networking/request'
 import * as payload from '../../networking/payload'
+import { Fonts } from '../../utils/Fonts'
 
 class PolicyDetails extends React.Component{
     constructor(props){
@@ -64,6 +65,12 @@ class PolicyDetails extends React.Component{
     renderVehicleItem = ({item}) => {
         return <VehicleItem 
             item={item}
+            onPress={() => {
+                this.props.navigation.navigate('Vehicle',{
+                    vehicle:item,
+                    policyId:this.state.policy.policyId,
+                })
+            }}
         />
     }
     render(){
@@ -86,48 +93,48 @@ class PolicyDetails extends React.Component{
                         {`Policy Type: ${this.state.policy.policyType}`}
                     </Text>
                     <View style={styles.detailsRow}>
-                        <Text style={styles.detailsText}>{'Policy No:'}</Text>
-                        <Text style={styles.detailsText}>{this.state.policy.policyNumber}</Text>
+                        <Text style={styles.detailsText}>{'Policy #:'}</Text>
+                        <Text style={[styles.detailsText,{fontFamily:Fonts.semiBold}]}>{this.state.policy.policyNumber}</Text>
                     </View>
                     <View style={styles.detailsRow}>
                         <Text style={styles.detailsText}>{'Effective date:'}</Text>
-                        <Text style={styles.detailsText}>{this.state.policy.effectiveDate}</Text>
+                        <Text style={[styles.detailsText,{fontFamily:Fonts.semiBold}]}>{this.state.policy.effectiveDate}</Text>
                     </View>
                     <View style={styles.detailsRow}>
                         <Text style={styles.detailsText}>{'Expiry date:'}</Text>
-                        <Text style={styles.detailsText}>{this.state.policy.expiryDate}</Text>
+                        <Text style={[styles.detailsText,{fontFamily:Fonts.semiBold}]}>{this.state.policy.expiryDate}</Text>
                     </View>
                     <View style={styles.detailsRow}>
                         <Text style={styles.detailsText}>{'Status:'}</Text>
-                        <Text style={styles.detailsText}>{this.state.policy.policyStatusName}</Text>
+                        <Text style={[styles.detailsText,{fontFamily:Fonts.semiBold}]}>{this.state.policy.policyStatusName}</Text>
                     </View>
                     <View style={styles.detailsRow}>
                         <Text style={styles.detailsText}>{'Annual Premium:'}</Text>
-                        <Text style={styles.detailsText}>{this.state.policyDetail.annualPremium}</Text>
+                        <Text style={[styles.detailsText,{fontFamily:Fonts.semiBold}]}>{`$ ${this.state.policyDetail.annualPremium}`}</Text>
                     </View>
                     <View style={styles.detailsRow}>
                         <Text style={styles.detailsText}>{'Total Credit:'}</Text>
-                        <Text style={styles.detailsText}>{this.state.policyDetail.totalCredit}</Text>
+                        <Text style={[styles.detailsText,{fontFamily:Fonts.semiBold}]}>{`$ ${this.state.policyDetail.totalCredit}`}</Text>
                     </View>
                     <View style={styles.detailsRow}>
                         <Text style={styles.detailsText}>{'Remaining Premium:'}</Text>
-                        <Text style={styles.detailsText}>{this.state.policyDetail.remainingPremium}</Text>
+                        <Text style={[styles.detailsText,{fontFamily:Fonts.semiBold}]}>{`$ ${this.state.policyDetail.remainingPremium}`}</Text>
                     </View>
                     <View style={styles.detailsRow}>
                         <Text style={styles.detailsText}>{'Due Amount:'}</Text>
-                        <Text style={styles.detailsText}>{this.state.policyDetail.dueAmount}</Text>
+                        <Text style={[styles.detailsText,{fontFamily:Fonts.semiBold}]}>{`$ ${this.state.policyDetail.dueAmount}`}</Text>
                     </View>
                     <View style={styles.detailsRow}>
                         <Text style={styles.detailsText}>{'Past Due:'}</Text>
-                        <Text style={styles.detailsText}>{this.state.policyDetail.pastDue}</Text>
+                        <Text style={[styles.detailsText,{fontFamily:Fonts.semiBold}]}>{this.state.policyDetail.pastDue}</Text>
                     </View>
                     <View style={styles.detailsRow}>
                         <Text style={styles.detailsText}>{`Current Due(${this.state.policyDetail.current_due_date}):`}</Text>
-                        <Text style={styles.detailsText}>{this.state.policyDetail.currentDue}</Text>
+                        <Text style={[styles.detailsText,{fontFamily:Fonts.semiBold}]}>{`$ ${this.state.policyDetail.currentDue}`}</Text>
                     </View>
                     <View style={styles.detailsRow}>
                         <Text style={styles.detailsText}>{'Total Due:'}</Text>
-                        <Text style={styles.detailsText}>{this.state.policyDetail.totalDue}</Text>
+                        <Text style={[styles.detailsText,{fontFamily:Fonts.semiBold}]}>{`$ ${this.state.policyDetail.totalDue}`}</Text>
                     </View>
                     
                 </View>

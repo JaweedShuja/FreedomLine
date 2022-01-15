@@ -3,7 +3,6 @@ import {
     View,
     Text,
     StyleSheet,
-    TextInput
 } from 'react-native'
 import { Fonts } from '../../utils/Fonts'
 
@@ -14,11 +13,9 @@ class Input extends React.Component{
                 <Text style={styles.title}>
                     {this.props.placeholder}
                 </Text>
-                <TextInput 
-                    value={this.props.value}
-                    onChangeText={(value) => {this.props.onChangeText(value)}}
-                    style={styles.input}
-                />
+                <Text style={[styles.title,{margin:5, fontFamily:Fonts.regular}]}>
+                    {this.props.value ? this.props.value : 'N/A'}
+                </Text>
             </View>
         )
     }
@@ -31,15 +28,10 @@ const styles = StyleSheet.create({
         width:'90%',
         alignSelf:'center',
         marginTop:10,
+        borderBottomWidth:1,
+        borderColor:"darkgray",  
     },
     title:{
-        fontFamily:Fonts.regular
+        fontFamily:Fonts.semiBold
     },
-    input:{
-        fontFamily:Fonts.regular,
-        borderBottomWidth:1,
-        borderColor:"gray",
-        fontSize:16,
-        padding:5,
-    }
 })

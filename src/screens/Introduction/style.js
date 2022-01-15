@@ -13,13 +13,14 @@ export default StyleSheet.create({
         width:(2640/100)*8,
         height:(524/100)*8,
         alignSelf:'center',
-        marginTop:20
+        marginTop:15
     },
     btn:{
-        height:45,
+        // height:45,
+        paddingVertical:12,
         width:200,
         borderRadius:10,
-        backgroundColor:Colors.white,
+        backgroundColor:Colors.primary2,
         alignSelf:'center',
         alignItems:'center',
         justifyContent:'center',

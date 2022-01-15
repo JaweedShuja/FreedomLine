@@ -10,11 +10,22 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import { Fonts } from '../../../utils/Fonts'
 
 class PolicyItem extends React.Component{
+    getColor(type){
+        switch(type){
+            case 'PENDING CANCELLATION':
+                return 'blue'
+            case 'CANCELED':
+                return 'red'
+            case 'ACTIVE':
+                return 'green'
+            default :    
+                return 'black'
+        }
+    }
     render(){
         return(
-            <TouchableOpacity 
-            onPress={()=>this.props.onPress()}
-            style={styles.container}>
+            <TouchableOpacity style={styles.container}
+                onPress={()=>this.props.onPress()}>
                 <View style={styles.topContainer}>
                     <MaterialIcons 
                         style={styles.icon}
@@ -23,21 +34,42 @@ class PolicyItem extends React.Component{
                         name={'policy'}
                     />
                     <View style={styles.detailsContainer}>
-                        <Text style={styles.policyNo}>{`Policy # ${this.props.item.policyNumber}`}</Text>
+                        <Text style={styles.policyNo}>
+                            <Text>{'Policy # '}</Text>
+                            <Text style={{fontFamily:Fonts.semiBold}}>{this.props.item.policyNumber}</Text>
+                        </Text>
                         <Text style={styles.transitType}>{this.props.item.companyName}</Text>
-                        <Text style={styles.policyType}>{`Policy Type : ${this.props.item.policyType}`}</Text>
+                        <Text style={styles.policyType}>
+                            <Text>{'Policy Type : '}</Text>
+                            <Text style={{fontFamily:Fonts.semiBold}}>{this.props.item.policyType}</Text>
+                        </Text>
                     </View>
                     <View style={styles.statusContainer}>
-                        <View style={styles.status}>
+                        
+                        <View style={[styles.status,{borderColor:this.getColor(this.props.item.policyStatusName)}]}>
                             <Text style={[styles.statusText,{
-                                color:Colors.green
+                                color:this.getColor(this.props.item.policyStatusName)
                             }]}>{this.props.item.policyStatusName}</Text>
                         </View>
+                        {
+                            this.props.item.policyStatusName === 'PENDING CANCELLATION' || this.props.item.policyStatusName === 'CANCELED' 
+                            ? <Text style={styles.cancelText}>
+                                <Text>{'Cancel Date : '}</Text>
+                                <Text style={{fontFamily:Fonts.semiBold}}>{this.props.item.cancellationDate}</Text>
+                            </Text>
+                            : null
+                        }
                     </View>
                 </View>
                 <View style={styles.dateContainer}>
-                    <Text style={styles.date}>{`Effective Date : ${this.props.item.effectiveDate}`}</Text>
-                    <Text style={styles.date}>{`Expiry Date : ${this.props.item.expiryDate}`}</Text>
+                    <View>
+                        <Text style={styles.date}>{'Effective Date'}</Text>
+                        <Text style={[styles.date,{fontFamily:Fonts.semiBold}]}>{this.props.item.effectiveDate}</Text>
+                    </View>
+                    <View style={{alignItems:'flex-end'}}>
+                        <Text style={styles.date}>{'Expiry Date'}</Text>
+                        <Text style={[styles.date,{fontFamily:Fonts.semiBold}]}>{this.props.item.expiryDate}</Text>
+                    </View>
                 </View>
             </TouchableOpacity>
         )
@@ -66,32 +98,33 @@ const styles = StyleSheet.create({
     policyNo:{
         fontFamily:Fonts.regular,
         color:Colors.primary2,
-        fontSize:16
+        fontSize:12
     },
     transitType:{
-        fontFamily:Fonts.regular,
+        fontFamily:Fonts.semiBold,
         color:Colors.primary2,
+        fontSize:12,
+        marginTop:5,
     },
     policyType:{
         fontFamily:Fonts.regular,
         color:Colors.primary2,
+        marginTop:5,
+        fontSize:12,
     },
     statusContainer:{
         alignItems:'center',
         justifyContent:'center'
     },
     status:{
-        // height:25,
-        width:100,
         padding:5,
         borderRadius:30,
         borderWidth:1,
-        borderColor:Colors.red,
         alignItems:'center',
         justifyContent:'center'
     },
     statusText:{
-        fontFamily:Fonts.semiBold,
+        fontFamily:Fonts.bold,
         fontSize:10,
     },
     dateContainer:{
@@ -105,6 +138,11 @@ const styles = StyleSheet.create({
         fontSize:12,
     },
     icon:{
-        margin:10,
+        margin:5,
+    },
+    cancelText:{
+        fontSize:12,
+        fontFamily:Fonts.regular,
+        marginTop:5,
     }
 })

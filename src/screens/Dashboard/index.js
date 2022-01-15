@@ -65,9 +65,9 @@ class Dashboard extends React.Component{
                 />
                 <TopBar 
                     title={'Dashboard'}
-                    onCardClick={() => { 
-                        this.props.navigation.navigate('SelectPolicies')
-                    }}
+                    // onCardClick={() => { 
+                    //     this.props.navigation.navigate('SelectPolicies')
+                    // }}
                     onLogoutClick={() => { 
                         Helper.saveToken('')
                         Helper.saveUser(null)
@@ -127,7 +127,8 @@ class Dashboard extends React.Component{
                     </TouchableOpacity>
                     <TouchableOpacity 
                     onPress={() => {
-                        this.props.navigation.navigate('Payments')
+                        // this.props.navigation.navigate('Payments')
+                        this.props.navigation.navigate('Invoices')
                     }}
                     style={styles.option}>
                         <MaterialIcons 
@@ -161,7 +162,9 @@ class Dashboard extends React.Component{
                             color={Colors.primary2}
                             name={'like1'}
                         />
-                        <Text style={styles.optionText}>Endorsements</Text>
+                        <Text style={[styles.optionText,{
+                            fontSize:10,
+                        }]}>Send Documents</Text>
                     </TouchableOpacity>
                     <TouchableOpacity 
                     onPress={() => {
