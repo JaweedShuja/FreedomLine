@@ -73,10 +73,12 @@ const styles = StyleSheet.create({
     },
     nameText:{
         fontFamily:Fonts.semiBold,
+        color:'black'
     },
     detailsText:{
         fontFamily:Fonts.regular,
-        fontSize:12
+        fontSize:12,
+        color:'black'
     },
     detailsContainer:{
         paddingLeft:15

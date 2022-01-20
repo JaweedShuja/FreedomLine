@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
         borderColor:"darkgray",  
     },
     title:{
-        fontFamily:Fonts.semiBold
+        fontFamily:Fonts.semiBold,
+        color:'black'
     },
 })

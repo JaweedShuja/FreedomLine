@@ -136,6 +136,7 @@ const styles = StyleSheet.create({
     date:{
         fontFamily:Fonts.regular,
         fontSize:12,
+        color:'black'
     },
     icon:{
         margin:5,

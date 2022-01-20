@@ -6,7 +6,8 @@ import {
     TextInput,
     TouchableOpacity,
     Image,
-    FlatList
+    FlatList,
+    ActivityIndicator
 } from 'react-native'
 import { Fonts } from '../../utils/Fonts'
 import styles from './style'
@@ -106,7 +107,16 @@ class Vehicle extends React.Component{
                         {'Drivers'}
                     </Text>
                 </View>
-
+                {
+                    this.state.isLoading && <ActivityIndicator 
+                        size={'small'}
+                        color={Colors.primary1}
+                        style={{
+                            alignSelf:'center',
+                            marginVertical:20
+                        }}
+                    />
+                }    
                 {
                     this.state.isLoading == false && this.state.drivers.length == 0
                     ? <Text style={{

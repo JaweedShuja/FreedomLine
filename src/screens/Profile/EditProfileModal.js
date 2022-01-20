@@ -76,14 +76,16 @@ const styles = StyleSheet.create({
         marginTop:10,
         marginBottom:10,
         marginLeft:10,
-        marginRight:10
+        marginRight:10,
+        color:'black'
     },
     modalLabel:{
         fontSize:16,
         marginLeft:10,
         marginRight:10,
         marginBottom:10,
-        fontFamily:Fonts.regular
+        fontFamily:Fonts.regular,
+        color:'black'
     },
     modalInput:{
         height:40,

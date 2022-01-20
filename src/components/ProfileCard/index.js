@@ -66,7 +66,8 @@ const styles = StyleSheet.create({
     nameText:{
         fontFamily:Fonts.bold,
         fontSize:16,
-        marginTop:10
+        marginTop:10,
+        color:Colors.primary2,
     },
     addressContainer:{
         flexDirection:'row',
@@ -75,6 +76,7 @@ const styles = StyleSheet.create({
     address:{
         fontFamily:Fonts.semiBold,
         marginLeft:5,
+        color:Colors.primary2,
     },
     contentContainer:{
         marginLeft:20,

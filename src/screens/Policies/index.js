@@ -93,7 +93,8 @@ class Policies extends React.Component{
                         marginVertical:10,
                         fontSize:12,
                         alignSelf:'center',
-                        fontFamily:Fonts.regular
+                        fontFamily:Fonts.regular,
+                        color:'black'
                     }}>{'Pull down to Refrest'}</Text>
                 }
                 <FlatList 

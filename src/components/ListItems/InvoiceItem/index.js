@@ -105,6 +105,7 @@ const styles = StyleSheet.create({
     statusText:{
         fontFamily:Fonts.semiBold,
         fontSize:12,
+        color:'black'
         
     },
     dateContainer:{
