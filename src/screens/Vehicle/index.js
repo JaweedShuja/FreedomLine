@@ -22,6 +22,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import VehicleItem from '../../components/ListItems/VehicleItem'
+import DriverItem from '../../components/ListItems/DriverItem'
 import vehicles from '../../data/vehicle.json'
 
 import * as api from '../../networking/api'
@@ -39,11 +40,16 @@ class Vehicle extends React.Component{
             drivers:[]
         }
         this.renderVehicleItem = this.renderVehicleItem.bind(this)
+        this.renderVehicleDriverItem = this.renderVehicleDriverItem.bind(this)
     }
     renderVehicleItem({item}){
         return <VehicleItem 
             item={item}
-            
+        />  
+    }
+    renderVehicleDriverItem({item}){
+        return <DriverItem 
+            item={item}
         />  
     }
     async getDrivers(){
@@ -58,7 +64,7 @@ class Vehicle extends React.Component{
         this.setState({ isLoading:false })
         if(response.status == true){
             this.setState({
-                drivers:[],
+                drivers:response.data.vehicleDrivers,
             })
         }
     }
@@ -83,6 +89,23 @@ class Vehicle extends React.Component{
                         renderItem={this.renderVehicleItem}
                     />
                 </View>
+                <View style={{
+                    flexDirection:'row',
+                    alignItems:'center',
+                    justifyContent:'space-between',
+                    marginHorizontal:20,
+                    marginTop:20,
+                    marginBottom:10,
+                    flexDirection:'row',
+                }}>
+                    <Text style={{
+                        fontFamily:Fonts.semiBold,
+                        fontSize:16,
+                        color:Colors.primary2,
+                    }}>
+                        {'Drivers'}
+                    </Text>
+                </View>
 
                 {
                     this.state.isLoading == false && this.state.drivers.length == 0
@@ -95,7 +118,12 @@ class Vehicle extends React.Component{
                         {'No Drivers Found!'}
                     </Text>
                     :
-                    null
+                    <View>
+                        <FlatList 
+                            data={this.state.drivers}
+                            renderItem={this.renderVehicleDriverItem}
+                        />
+                    </View>
 
                 }
 

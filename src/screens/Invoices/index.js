@@ -18,7 +18,7 @@ import { Colors } from '../../utils/Colors'
 import {commonStyles} from '../../utils/commonStyles'
 import Circle from '../../components/Circle'
 import TopBar from '../../components/TopBar/TopBarBackHome'
-
+import Helper from '../../utils/Helper'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import AntDesign from 'react-native-vector-icons/AntDesign'
@@ -47,16 +47,30 @@ class Invoices extends React.Component{
         return <InvoiceItem 
             item={item}
             onPayClick={() => {
-                // this.props.navigation.navigate('SelectPolicies')
                 console.log(item)
+                if(item.invoice_pay_now_link != ''){
+                    if(item.invoice_pay_now_link.slice(0,4) == 'http'){
+                        Linking.openURL(item.invoice_pay_now_link)
+                    }
+                    else{
+                        Helper.showToast(item.invoice_pay_now_link)
+                    }
+                    
+                }
+                else{
+                    Helper.showToast('No Link Found!')
+                }
             }}
             onViewClick={() => {
-                console.log(item)
-                // Linking.openURL('http://docs.google.com/viewer?url=httml://47.21.85.156:7777')
+                if(item.invoice_link != ''){
+                    Linking.openURL(item.invoice_link)
+                }else{
+                    Helper.showToast('No Link Found!')
+                }
+                
             }}
         />  
     }
-    compon
     async getInvoices(){
         this.setState({isLoading:true})
         const response = await request.PostRequest(
@@ -92,7 +106,7 @@ class Invoices extends React.Component{
                     />
                 }
                 {
-                !this.state.refreshing && <Text style={{
+                !this.state.isLoading && !this.state.refreshing && <Text style={{
                     marginVertical:10,
                     fontSize:12,
                     alignSelf:'center',

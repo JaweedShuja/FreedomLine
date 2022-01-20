@@ -40,6 +40,7 @@ class Profile extends React.Component{
 
             //2
             contact:'',
+            contactArr:[],
 
             //3
             address:"",
@@ -81,7 +82,8 @@ class Profile extends React.Component{
             //2
             if(response.data.clientContacts.length != 0){
                 this.setState({
-                    contact:response.data.clientContacts[0].contact
+                    contact:response.data.clientContacts[0].contact,
+                    contactArr:response.data.clientContacts
                 })
             }
             //3
@@ -142,15 +144,15 @@ class Profile extends React.Component{
                     <Input value={this.state.email}
                         onChangeText={(value) => {this.setState({email:value})}}
                         placeholder={'Email'}/>
-                    <Input value={this.state.contact}
+                    {this.state.contactArr.map(item =>  <Input value={item.contact}
                         onChangeText={(value) => {this.setState({contact:value})}}
-                        placeholder={'Cell phone'} />
-                    <Input value={''}
+                        placeholder={item.contact_name} />)}
+                    {/* <Input value={''}
                         onChangeText={(value) => {}}
                         placeholder={'Homephone'}/>
                     <Input value={''}
                         onChangeText={(value) => {}}
-                        placeholder={'Kin Number'}/>
+                        placeholder={'Kin Number'}/> */}
                     <Input value={this.state.address}
                         onChangeText={(value) => {this.setState({address:value})}}
                         placeholder={'Address'} />

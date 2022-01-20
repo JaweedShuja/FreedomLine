@@ -14,7 +14,7 @@ class PolicyItem extends React.Component{
         switch(type){
             case 'PENDING CANCELLATION':
                 return 'blue'
-            case 'CANCELED':
+            case 'CANCELLED':
                 return 'red'
             case 'ACTIVE':
                 return 'green'
@@ -52,7 +52,7 @@ class PolicyItem extends React.Component{
                             }]}>{this.props.item.policyStatusName}</Text>
                         </View>
                         {
-                            this.props.item.policyStatusName === 'PENDING CANCELLATION' || this.props.item.policyStatusName === 'CANCELED' 
+                            this.props.item.policyStatusName === 'PENDING CANCELLATION' || this.props.item.policyStatusName === 'CANCELLED' 
                             ? <Text style={styles.cancelText}>
                                 <Text>{'Cancel Date : '}</Text>
                                 <Text style={{fontFamily:Fonts.semiBold}}>{this.props.item.cancellationDate}</Text>

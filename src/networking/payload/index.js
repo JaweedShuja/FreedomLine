@@ -85,7 +85,7 @@ export function GetDriverByPolicyAndVehicleIdPayloads(
     policyId
 ){
     return JSON.stringify({
-        vehicleId:vehicleId,
+        policyVehicleId:vehicleId,
         policyId:policyId,       
     })
 }

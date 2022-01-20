@@ -57,7 +57,7 @@ export default StyleSheet.create({
         flex:1,
         borderWidth:1,
         borderColor:Colors.primary2,
-        margin:10,
+        margin:5,
         borderRadius:10,
         alignItems:'center',
         justifyContent:'center'

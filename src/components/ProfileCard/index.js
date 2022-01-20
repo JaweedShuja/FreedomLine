@@ -22,8 +22,9 @@ class ProfileCard extends React.Component{
                 </View>
                 <View style={styles.contentContainer}>
                     <Text style={styles.nameText}>
-                        {this.props.name ? this.props.name : 'Marie Kumar'}</Text>
-                    <View style={styles.addressContainer}>
+                        {this.props.name}</Text>
+                    {
+                        this.props.noPhone ? null : <View style={styles.addressContainer}>
                         <Entypo 
                             size={15}
                             color={Colors.primary2}
@@ -32,7 +33,8 @@ class ProfileCard extends React.Component{
                         <Text style={styles.address}>
                             {this.props.phoneNumber}
                         </Text>
-                    </View>
+                    </View> 
+                    }
                 </View>
             </View>
         )

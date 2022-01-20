@@ -7,7 +7,8 @@ import {
     TouchableOpacity,
     Image,
     FlatList,
-    ActivityIndicator
+    ActivityIndicator,
+    RefreshControl
 } from 'react-native'
 import styles from './style'
 import * as image from '../../utils/imagePath'
@@ -26,6 +27,7 @@ import policies from '../../data/policies.json'
 import * as api from '../../networking/api'
 import * as request from '../../networking/request'
 import * as payload from '../../networking/payload'
+import { Fonts } from '../../utils/Fonts'
 
 class Policies extends React.Component{
     constructor(props){
@@ -33,6 +35,7 @@ class Policies extends React.Component{
         this.state = {
             policies:[],
             isLoading:false,
+            refreshing:false,
         }
         this.renderPolicyItem = this.renderPolicyItem.bind(this)
     }
@@ -57,6 +60,7 @@ class Policies extends React.Component{
     renderPolicyItem({item}){
         return <PolicyItem 
             item={item}
+            // onPress={() => {console.log(item)}}
             onPress={() => { this.props.navigation.navigate('PolicyDetails',{
                 policy:item
             })}}
@@ -84,7 +88,29 @@ class Policies extends React.Component{
                         }}
                     />
                 }
+                {
+                    !this.state.isLoading && !this.state.refreshing && <Text style={{
+                        marginVertical:10,
+                        fontSize:12,
+                        alignSelf:'center',
+                        fontFamily:Fonts.regular
+                    }}>{'Pull down to Refrest'}</Text>
+                }
                 <FlatList 
+                refreshControl={<RefreshControl
+                    refreshing={this.state.refreshing}
+                    onRefresh={async () => {
+                        this.setState({
+                            refreshing:true,
+                            policies:[]
+                        })
+                        await this.getPolicies()
+                        this.setState({
+                            refreshing:false
+                        })
+
+                    }}
+                  />}
                     contentContainerStyle={{paddingBottom:300}}
                     data={this.state.policies}
                     renderItem={this.renderPolicyItem}

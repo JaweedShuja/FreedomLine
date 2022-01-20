@@ -34,6 +34,7 @@ import * as request from '../../networking/request'
 import * as payload from '../../networking/payload'
 import { connect } from 'react-redux';
 
+
 class Chanage extends React.Component{
     constructor(props){
         super(props)
@@ -55,9 +56,9 @@ class Chanage extends React.Component{
             payload.ChangeAddressRequestPayloads(
                 this.props.user.id,
                 this.state.address,
-                this.state.city.address,
-                this.state.zip.address,
-                this.state.state.address
+                this.state.city,
+                this.state.zip,
+                this.state.state
             ),
             api.ChangeAddressRequestAPI()
         )
@@ -80,7 +81,10 @@ class Chanage extends React.Component{
                 />
                 <Circle/>                
 
-                <ProfileCard />
+                <ProfileCard 
+                    name={this.props.user.name}
+                    noPhone
+                />
                 <ScrollView>
                     
                         {

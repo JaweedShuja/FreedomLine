@@ -6,7 +6,8 @@ import {
     TextInput,
     TouchableOpacity,
     Image,
-    Linking
+    Linking,
+    ActivityIndicator
 } from 'react-native'
 import styles from './style'
 import * as image from '../../utils/imagePath'
@@ -35,15 +36,18 @@ class Dashboard extends React.Component{
             activePolicies:0,
             pendingCancelation:0,
             cancelled:0,
+            isLoading:false,
         }
     }
     async getDashboard(){
+        this.setState({isLoading:true})
         const response = await request.PostRequest(
             payload.GetDashboardByClientIdPayloads(
                 this.props.user.id,
             ),
             api.GetDashboardByClientIdAPI()
         )
+        this.setState({isLoading:false})
         if(response.status == true){
             this.setState({
                 dueAmount:response.data.dueAmount,
@@ -54,7 +58,9 @@ class Dashboard extends React.Component{
         }
     }
     componentDidMount(){
-        this.getDashboard()
+        const unsubscribe = this.props.navigation.addListener('focus', () => {
+            this.getDashboard()    
+        });
     }
     render(){
         return(
@@ -82,6 +88,29 @@ class Dashboard extends React.Component{
                 />
 
                 <View style={styles.topCard}>
+                    <TouchableOpacity 
+                    onPress={() => {
+                        this.getDashboard()    
+                    }}
+                    style={{
+                        height:30,
+                        width:30,
+                        position:'absolute',
+                        right:10,
+                        top:10,
+                        alignItems:'center',
+                        justifyContent:'center'
+                    }}>
+                        {this.state.isLoading ? <ActivityIndicator 
+                            size={'small'}
+                            color={'white'}
+                        />
+                        :<Ionicons 
+                            size={20}
+                            color={'white'}
+                            name={'refresh'}
+                        />}
+                    </TouchableOpacity>
                     <Text style={styles.dueAmount}>Due Amount</Text>
                     <Text style={styles.amountText}>{`$${this.state.dueAmount}`}</Text>
                     <View style={styles.cardOptionRow}>
@@ -162,9 +191,7 @@ class Dashboard extends React.Component{
                             color={Colors.primary2}
                             name={'like1'}
                         />
-                        <Text style={[styles.optionText,{
-                            fontSize:10,
-                        }]}>Send Documents</Text>
+                        <Text style={styles.optionText}>Send Documents</Text>
                     </TouchableOpacity>
                     <TouchableOpacity 
                     onPress={() => {

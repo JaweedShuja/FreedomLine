@@ -73,6 +73,18 @@ class PolicyDetails extends React.Component{
             }}
         />
     }
+    getColor(type){
+        switch(type){
+            case 'PENDING CANCELLATION':
+                return 'blue'
+            case 'CANCELLED':
+                return 'red'
+            case 'ACTIVE':
+                return 'green'
+            default :    
+                return 'black'
+        }
+    }
     render(){
         return(
             <View style={styles.container}>
@@ -86,8 +98,10 @@ class PolicyDetails extends React.Component{
                     onHomeClick={() => { this.props.navigation.navigate('Dashboard')}}
                 />
                 <View style={styles.detailsContainer}>
-                    <View style={styles.status}>
-                        <Text style={[styles.statusText,{color:Colors.green}]}>{this.state.policy.policyStatusName}</Text>
+                    <View style={[styles.status,{borderColor:this.getColor(this.state.policy.policyStatusName)}]}>
+                        <Text style={[styles.statusText,{
+                              color:this.getColor(this.state.policy.policyStatusName)
+                        }]}>{this.state.policy.policyStatusName}</Text>
                     </View>
                     <Text style={styles.pType}>
                         {`Policy Type: ${this.state.policy.policyType}`}
@@ -109,11 +123,11 @@ class PolicyDetails extends React.Component{
                         <Text style={[styles.detailsText,{fontFamily:Fonts.semiBold}]}>{this.state.policy.policyStatusName}</Text>
                     </View>
                     <View style={styles.detailsRow}>
-                        <Text style={styles.detailsText}>{'Annual Premium:'}</Text>
+                        <Text style={styles.detailsText}>{'Total Policy Cost:'}</Text>
                         <Text style={[styles.detailsText,{fontFamily:Fonts.semiBold}]}>{`$ ${this.state.policyDetail.annualPremium}`}</Text>
                     </View>
                     <View style={styles.detailsRow}>
-                        <Text style={styles.detailsText}>{'Total Credit:'}</Text>
+                        <Text style={styles.detailsText}>{'Total Paid:'}</Text>
                         <Text style={[styles.detailsText,{fontFamily:Fonts.semiBold}]}>{`$ ${this.state.policyDetail.totalCredit}`}</Text>
                     </View>
                     <View style={styles.detailsRow}>

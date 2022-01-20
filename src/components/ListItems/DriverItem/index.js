@@ -10,42 +10,36 @@ import { Colors } from '../../../utils/Colors'
 import { Fonts } from '../../../utils/Fonts'
 import * as image from '../../../utils/imagePath'
 
-class VehicleItem extends React.Component {
+class DriverItem extends React.Component {
     render() {
         return(
-            <TouchableOpacity 
-            onPress={this.props.onPress}
+            <TouchableOpacity  onPress={this.props.onPress}
             style={styles.container}>
                 <Image 
                     style={styles.iamgeContainer}
-                    source={image.ImagePath.car}
+                    source={image.ImagePath.driver}
                 />
                 <View style={styles.detailsContainer}>
-                    <Text style={styles.nameText}>{this.props.item.vehName}</Text>
+                    <Text style={styles.nameText}>{this.props.item.driverName}</Text>
                     <Text style={styles.detailsText}>
-                        <Text>{'VIN # '}</Text>
-                        <Text style={{fontFamily:Fonts.semiBold}}>{this.props.item.vinNumber}</Text>
+                        <Text>{'License # '}</Text>
+                        <Text style={{fontFamily:Fonts.semiBold}}>{this.props.item.licenceNumber}</Text>
                     </Text>
                     <Text style={styles.detailsText}>
-                        <Text>{'Active Driver : '}</Text>
-                        <Text style={{fontFamily:Fonts.semiBold}}>{this.props.item.activeDrivers}</Text>
+                        <Text>{'License Expiry Date : '}</Text>
+                        <Text style={{fontFamily:Fonts.semiBold}}>{this.props.item.licenceExpiryDate}</Text>
                     </Text>
                     <Text style={styles.detailsText}>
-                        <Text>{'Plate # '}</Text>
-                        <Text style={{fontFamily:Fonts.semiBold}}>{this.props.item.plateNumber}</Text>
+                        <Text>{'TLC # '}</Text>
+                        <Text style={{fontFamily:Fonts.semiBold}}>{this.props.item.tlcNumber}</Text>
                     </Text>
                     <Text style={styles.detailsText}>
-                        <Text>{'Reg Expiry Date : '}</Text>
-                        {/* <Text style={{fontFamily:Fonts.semiBold}}>{this.props.item.expiryDate}</Text> */}
-                        <Text style={{fontFamily:Fonts.semiBold}}>{this.props.item.regExpiryDate}</Text>
+                        <Text>{'TLC Expiry Date : '}</Text>
+                        <Text style={{fontFamily:Fonts.semiBold}}>{this.props.item.tlcExpiryDate}</Text>
                     </Text>
                     <Text style={styles.detailsText}>
-                        <Text>{'Model : '}</Text>
-                        <Text style={{fontFamily:Fonts.semiBold}}>{this.props.item.model}</Text>
-                    </Text>
-                    <Text style={styles.detailsText}>
-                        <Text>{'Company : '}</Text>
-                        <Text style={{fontFamily:Fonts.semiBold}}>{this.props.item.companyName}</Text>
+                        <Text>{'DDC Expiry Date : '}</Text>
+                        <Text style={{fontFamily:Fonts.semiBold}}>{this.props.item.ddcExpiryDate}</Text>
                     </Text>
                 </View>
             </TouchableOpacity>
@@ -53,7 +47,7 @@ class VehicleItem extends React.Component {
     }
 }
 
-export default VehicleItem
+export default DriverItem
 
 const styles = StyleSheet.create({
     container:{

@@ -17,18 +17,19 @@ export default StyleSheet.create({
         padding:10,
     },
     status:{
-        height:25,
-        width:80,
+        // height:25,
+        // width:100,
         borderRadius:30,
         borderWidth:1,
         borderColor:Colors.red,
         alignItems:'center',
         justifyContent:'center',
         alignSelf:'flex-end',
+        padding:5,
     },
     statusText:{
         fontFamily:Fonts.semiBold,
-        fontSize:12,
+        fontSize:10,
     },
     pType:{
         fontFamily:Fonts.semiBold,
@@ -43,6 +44,7 @@ export default StyleSheet.create({
     },
     detailsText:{
         fontFamily:Fonts.regular,
+        color:'black'
     },
     vehicleText:{
         fontFamily:Fonts.semiBold,

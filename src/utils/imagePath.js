@@ -8,6 +8,7 @@ export const ImagePath = {
     business:require('../images/dashboard/business.png'),
 
     car:require('../images/car.jpeg'),
+    driver:require('../images/driver.png')
 }
 
 

@@ -43,6 +43,10 @@ class InvoiceItem extends React.Component{
                         </TouchableOpacity>
                     </View>
                     <View style={styles.statusContainer}>
+                            <Text style={[styles.statusText,{
+                                color: this.props.item.invoice_status == 'Paid' ? Colors.green : Colors.red,
+                                alignSelf:'flex-end'
+                            }]}>{this.props.item.invoice_status}</Text>
                         <TouchableOpacity
                         onPress={() => this.props.onPayClick()}
                         style={styles.status}>
@@ -87,8 +91,7 @@ const styles = StyleSheet.create({
         color:Colors.primary2,
     },
     statusContainer:{
-        alignItems:'center',
-        justifyContent:'center'
+        justifyContent:'space-between',
     },
     status:{
         height:25,
