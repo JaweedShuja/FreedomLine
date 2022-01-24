@@ -165,13 +165,13 @@ class Profile extends React.Component{
                     <Input value={this.state.zip}
                         onChangeText={(value) => {this.setState({zip:value})}}
                         placeholder={'Zip'}/>
-                    <TouchableOpacity 
+                    {/* <TouchableOpacity 
                     onPress={this.setModalVisibleUpdate}
                     style={styles.updateButton}>
                         <Text style={styles.updateButtonText}>
                             Update
                         </Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                 </ScrollView>
             </View>
         )

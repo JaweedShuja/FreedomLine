@@ -27,6 +27,7 @@ import Helper from '../../utils/Helper'
 import * as api from '../../networking/api'
 import * as request from '../../networking/request'
 import * as payload from '../../networking/payload'
+import { Fonts } from '../../utils/Fonts'
 
 class Dashboard extends React.Component{
     constructor(props){
@@ -37,6 +38,7 @@ class Dashboard extends React.Component{
             pendingCancelation:0,
             cancelled:0,
             isLoading:false,
+            isRedDot:false,
         }
     }
     async getDashboard(){
@@ -59,8 +61,36 @@ class Dashboard extends React.Component{
     }
     componentDidMount(){
         const unsubscribe = this.props.navigation.addListener('focus', () => {
-            this.getDashboard()    
+            this.getDashboard()   
+            this.newNotification()
         });
+    }
+    async newNotification(){
+        let oldlenght = await Helper.getCache('notification')
+        if(oldlenght == null){
+            oldlenght = 0
+        }
+        let newLength = 0
+        const response = await request.PostRequest(
+            payload.GetClientDeviceNotificationsPayloads(
+                this.props.user.id,
+            ),
+            api.GetClientDeviceNotificationsAPI()
+        )
+        if(response.status == true){
+            newLength = response.data.length
+        }
+        if(newLength > oldlenght){
+            this.setState({
+                isRedDot:true
+            })
+        }
+        else{
+            this.setState({
+                isRedDot:false
+            })
+        }
+        // Helper.setCache('notification',newLength)
     }
     render(){
         return(
@@ -194,10 +224,29 @@ class Dashboard extends React.Component{
                         <Text style={styles.optionText}>Send Documents</Text>
                     </TouchableOpacity>
                     <TouchableOpacity 
-                    onPress={() => {
-                        this.props.navigation.navigate('Notifications')
-                    }}
+                    onPress={() => { this.props.navigation.navigate('Notifications') }}
                     style={styles.option}>
+                        {
+                            this.state.isRedDot && <View style={{
+                                height:20,
+                                width:20,
+                                backgroundColor:Colors.red,
+                                borderRadius:10,
+                                position:'absolute',
+                                right:10,
+                                top:10,
+                                alignItems:'center',
+                                justifyContent:'center'
+                            }}>
+                                <Text style={{
+                                    fontFamily:Fonts.bold,
+                                    color:'white',
+                                    fontSize:12,
+                                }}>
+                                    {'+1'}
+                                </Text>
+                            </View>
+                        }
                         <Ionicons 
                             size={30}
                             color={Colors.primary2}
@@ -210,8 +259,10 @@ class Dashboard extends React.Component{
 
                 <View style={styles.bottomButton}>
                     <TouchableOpacity 
-                    onPress={() => {
-                        Linking.openURL('https://freedomlinebrokerage.com/?page_id=182')
+                    onPress={async () => {
+                        const length = await Helper.getCache('javed')
+                        console.log(length)
+                        // Linking.openURL('https://freedomlinebrokerage.com/?page_id=182')
                     }}
                     style={styles.btn}>
                         <Text style={[styles.btnText,{

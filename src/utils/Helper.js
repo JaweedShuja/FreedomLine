@@ -68,5 +68,11 @@ export default class Helper{
         var arr = datetime.split(' ')
         return arr[0].split('-')[2] + " " +months[parseInt(arr[0].split('-')[1])] + ", " + arr[0].split('-')[0] + " " + arr[1]
     }
-    
+    static saveCache(key, value) {
+        storeData(key, value);
+    }
+    static async getCache(key) {
+        let value = await getData(key);
+        return value;
+    }
 }

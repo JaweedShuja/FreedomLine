@@ -7,7 +7,9 @@ import {
     TouchableOpacity,
     Image,
     FlatList,
-    ActivityIndicator
+    ActivityIndicator,
+    ScrollView,
+    RefreshControl
 } from 'react-native'
 import styles from './style'
 import * as image from '../../utils/imagePath'
@@ -38,6 +40,7 @@ class PolicyDetails extends React.Component{
             policyDetail:{},
             policyVehicles:[],
             isLoading:false,
+            refreshing:false,
         }
         this.renderVehicleItem = this.renderVehicleItem.bind(this)
     }
@@ -62,7 +65,7 @@ class PolicyDetails extends React.Component{
         }
     }
     
-    renderVehicleItem = ({item}) => {
+    renderVehicleItem = (item) => {
         return <VehicleItem 
             item={item}
             onPress={() => {
@@ -97,6 +100,31 @@ class PolicyDetails extends React.Component{
                     onBackClick={() => { this.props.navigation.goBack() }}
                     onHomeClick={() => { this.props.navigation.navigate('Dashboard')}}
                 />
+                <ScrollView
+                    refreshControl={<RefreshControl
+                        refreshing={this.state.refreshing}
+                        onRefresh={async () => {
+                            this.setState({
+                                refreshing:true,
+                                policies:[]
+                            })
+                            this.getPolicyDetails()
+                            this.setState({
+                                refreshing:false
+                            })
+    
+                        }}
+                      />}
+                >
+                {
+                    !this.state.isLoading && !this.state.refreshing && <Text style={{
+                        marginVertical:10,
+                        fontSize:12,
+                        alignSelf:'center',
+                        fontFamily:Fonts.regular,
+                        color:'black'
+                    }}>{'Pull down to Refrest'}</Text>
+                }
                 <View style={styles.detailsContainer}>
                     <View style={[styles.status,{borderColor:this.getColor(this.state.policy.policyStatusName)}]}>
                         <Text style={[styles.statusText,{
@@ -176,11 +204,10 @@ class PolicyDetails extends React.Component{
                     null
 
                 }
-                <FlatList 
-                    data={this.state.policyVehicles}
-                    renderItem={this.renderVehicleItem}
-                />
-               
+                {
+                    this.state.policyVehicles.map(this.renderVehicleItem)
+                }
+                </ScrollView>
                 <Circle/>                
             </View>
         )

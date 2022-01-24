@@ -26,6 +26,7 @@ import * as api from '../../networking/api'
 import * as request from '../../networking/request'
 import * as payload from '../../networking/payload'
 import { connect } from 'react-redux';
+import Helper from '../../utils/Helper'
 
 class Notifications extends React.Component{
     constructor(props){
@@ -49,6 +50,7 @@ class Notifications extends React.Component{
             ),
             api.GetClientDeviceNotificationsAPI()
         )
+        console.log(response.data.length)
         this.setState({
             isLoading:false
         })
@@ -56,6 +58,7 @@ class Notifications extends React.Component{
             this.setState({
                 notifications:response.data  
             })
+            Helper.saveCache('notification',response.data.length)
         }
     }
     renderNotificationItem({item}){

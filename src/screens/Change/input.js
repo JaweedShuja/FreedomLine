@@ -15,6 +15,7 @@ class Input extends React.Component{
                     {this.props.placeholder}
                 </Text>
                 <TextInput 
+                    keyboardType={this.props.keyboardType}
                     value={this.props.value}
                     onChangeText={(value) => {this.props.onChangeText(value)}}
                     style={styles.input}
@@ -33,7 +34,8 @@ const styles = StyleSheet.create({
         marginTop:10,
     },
     title:{
-        fontFamily:Fonts.regular
+        fontFamily:Fonts.regular,
+        color:"black"
     },
     input:{
         fontFamily:Fonts.regular,

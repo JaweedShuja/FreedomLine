@@ -18,6 +18,7 @@ import RecentPayments from '../../screens//RecentPayments';
 import UploadDocuments from '../../screens//UploadDocuments';
 import Change from '../../screens//Change'
 import PayWithACH from '../../screens//PayWithACH';
+import SelectPolicy from '../../screens/SelectPolicy';
 
 const Stack = createNativeStackNavigator();
 
@@ -44,7 +45,7 @@ function HomeFlow() {
         <Stack.Screen name="UploadDocuments" component={UploadDocuments} />
         <Stack.Screen name="Change" component={Change} />
         <Stack.Screen name="PayWithACH" component={PayWithACH} />
-
+        <Stack.Screen name="SelectPolicy" component={SelectPolicy} />
       </Stack.Navigator>
   );
 }

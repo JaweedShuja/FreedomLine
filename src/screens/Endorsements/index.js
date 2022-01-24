@@ -61,7 +61,7 @@ class Endorsements extends React.Component{
                         name={this.state.selectedModal}
                         onContinue={async () => { 
                             await this.setModalVisible_Change()
-                            this.props.navigation.navigate('Change',{
+                            this.props.navigation.navigate('SelectPolicy',{
                                 type:this.state.selectedModal
                             })
                          }}
@@ -122,7 +122,7 @@ class Endorsements extends React.Component{
                     </TouchableOpacity>
                     <TouchableOpacity 
                     onPress={() => {
-                        this.props.navigation.navigate('Change',{
+                        this.props.navigation.navigate('SelectPolicy',{
                             type:'Other'
                         })
                     }}

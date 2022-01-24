@@ -7,7 +7,9 @@ import {
     TouchableOpacity,
     Image,
     FlatList,
-    ActivityIndicator
+    ActivityIndicator,
+    ScrollView,
+    RefreshControl
 } from 'react-native'
 import { Fonts } from '../../utils/Fonts'
 import styles from './style'
@@ -38,17 +40,18 @@ class Vehicle extends React.Component{
             policyId:this.props.route.params.policyId,
 
             isLoading:false,
-            drivers:[]
+            drivers:[],
+            refreshing:false,
         }
         this.renderVehicleItem = this.renderVehicleItem.bind(this)
         this.renderVehicleDriverItem = this.renderVehicleDriverItem.bind(this)
     }
-    renderVehicleItem({item}){
+    renderVehicleItem(item){
         return <VehicleItem 
             item={item}
         />  
     }
-    renderVehicleDriverItem({item}){
+    renderVehicleDriverItem(item){
         return <DriverItem 
             item={item}
         />  
@@ -83,13 +86,35 @@ class Vehicle extends React.Component{
                     title={'Vehicle'}
                     onBackClick={() => { this.props.navigation.goBack() }}
                     onHomeClick={() => { this.props.navigation.navigate('Dashboard')}}
-                />
-                <View>
-                    <FlatList 
-                        data={this.state.vehicle}
-                        renderItem={this.renderVehicleItem}
-                    />
-                </View>
+                />    
+                <ScrollView
+                     refreshControl={<RefreshControl
+                        refreshing={this.state.refreshing}
+                        onRefresh={async () => {
+                            this.setState({
+                                refreshing:true,
+                                policies:[]
+                            })
+                            this.getDrivers()
+                            this.setState({
+                                refreshing:false
+                            })
+    
+                        }}
+                      />}
+                >
+                    {
+                    !this.state.isLoading && !this.state.refreshing && <Text style={{
+                        marginVertical:10,
+                        fontSize:12,
+                        alignSelf:'center',
+                        fontFamily:Fonts.regular,
+                        color:'black'
+                    }}>{'Pull down to Refrest'}</Text>
+                }
+                {
+                    this.state.vehicle.map(this.renderVehicleItem)   
+                }
                 <View style={{
                     flexDirection:'row',
                     alignItems:'center',
@@ -127,16 +152,10 @@ class Vehicle extends React.Component{
                     }}>
                         {'No Drivers Found!'}
                     </Text>
-                    :
-                    <View>
-                        <FlatList 
-                            data={this.state.drivers}
-                            renderItem={this.renderVehicleDriverItem}
-                        />
-                    </View>
-
+                    :   
+                        this.state.drivers.map(this.renderVehicleDriverItem)
                 }
-
+                </ScrollView>
                 <Circle/>                
             </View>
         )

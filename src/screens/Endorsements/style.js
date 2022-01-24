@@ -25,7 +25,6 @@ export default StyleSheet.create({
     },
     optionText:{
         fontFamily:Fonts.semiBold,
-        fontSize:16,
         color:Colors.primary2,
         marginTop:10,
     }

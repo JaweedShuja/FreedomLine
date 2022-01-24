@@ -44,6 +44,10 @@ class VehicleItem extends React.Component {
                         <Text style={{fontFamily:Fonts.semiBold}}>{this.props.item.model}</Text>
                     </Text>
                     <Text style={styles.detailsText}>
+                        <Text>{'Year : '}</Text>
+                        <Text style={{fontFamily:Fonts.semiBold}}>{this.props.item.year}</Text>
+                    </Text>
+                    <Text style={styles.detailsText}>
                         <Text>{'Company : '}</Text>
                         <Text style={{fontFamily:Fonts.semiBold}}>{this.props.item.companyName}</Text>
                     </Text>
