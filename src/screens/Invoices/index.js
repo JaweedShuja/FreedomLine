@@ -110,8 +110,9 @@ class Invoices extends React.Component{
                     marginVertical:10,
                     fontSize:12,
                     alignSelf:'center',
-                    fontFamily:Fonts.regular
-                }}>{'Pull down to Refrest'}</Text>
+                    fontFamily:Fonts.regular,
+                    color:'#8E8E93'
+                }}>{'Pull down to Refresh'}</Text>
                 }
                 <FlatList 
                     refreshControl={<RefreshControl

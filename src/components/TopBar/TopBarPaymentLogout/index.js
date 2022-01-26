@@ -28,6 +28,7 @@ class TopBar extends React.Component{
                 onPress={() => this.props.onLogoutClick()}
                 style={[styles.button,{ right:0, }]}>
                     <AntDesign 
+                        color={'black'}
                         size={20}
                         name={'logout'}
                     />

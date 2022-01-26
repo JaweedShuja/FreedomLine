@@ -18,6 +18,7 @@ class TopBar extends React.Component{
                 onPress={() => this.props.onBackClick()}
                 style={styles.button}>
                     <Ionicons 
+                        color={'black'}
                         size={20}
                         name={'arrow-back'}
                     />
@@ -29,6 +30,7 @@ class TopBar extends React.Component{
                 onPress={() => this.props.onCardClick()}
                 style={[styles.button,{ position:'absolute',right:0 }]}>
                     <AntDesign 
+                        color={'black'}
                         size={20}
                         name={'creditcard'}
                     />

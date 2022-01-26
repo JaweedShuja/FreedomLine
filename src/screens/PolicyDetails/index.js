@@ -122,8 +122,8 @@ class PolicyDetails extends React.Component{
                         fontSize:12,
                         alignSelf:'center',
                         fontFamily:Fonts.regular,
-                        color:'black'
-                    }}>{'Pull down to Refrest'}</Text>
+                        color:'#8E8E93'
+                    }}>{'Pull down to Refresh'}</Text>
                 }
                 <View style={styles.detailsContainer}>
                     <View style={[styles.status,{borderColor:this.getColor(this.state.policy.policyStatusName)}]}>

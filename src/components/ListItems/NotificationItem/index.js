@@ -21,7 +21,7 @@ class NotificationItem extends React.Component{
                     />  
                 </View>
                 <View style={{ flex:1, }}>
-                    <Text style={styles.policyNo}>{`Invoice # ${this.props.item.notification_message}`}</Text>
+                    <Text style={styles.policyNo}>{`${this.props.item.notification_message}`}</Text>
                     <View style={{flexDirection:'row', marginTop:10}}>
                         
                         <View>

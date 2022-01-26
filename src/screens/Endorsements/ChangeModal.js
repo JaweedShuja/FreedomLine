@@ -25,12 +25,41 @@ class ChangeModal extends React.Component {
                         fontFamily:Fonts.regular,
                         marginTop:10
                     }]}>
-                        {`*Any bill under your name Or
-*Bank Statement Or 
-*Rental Lease
-If you don't have any proof of 
-confidence, Please contact the
-office.`}
+                        {
+                            this.props.name == 'Address'
+                            ?
+                            `
+* Any utility bill under your name
+Or
+* Bank Statement
+Or
+* Rental Lease 
+* If you don’t have any proof of address, Please contact the office.
+                            `
+                            :
+                            this.props.name == 'Vehicle'
+                            ?
+                            `
+* Proof of ownership
+*  Title of new vehicle 
+Or
+* Bill of sale 
+* Registeration of existing vehicle
+* If you don’t have any proof of address, Please contact the office.
+                            `
+                            :
+                            this.props.name == 'Driver'
+                            ?
+                            `
+* Driver License 
+* TLC License
+* Base Letter 
+* Proof of address
+* If you don’t have any proof of address, Please contact the office.
+                            `
+                            :
+                            ''
+                            }
                     </Text>
                     <View style={styles.bottomButtonContainer}>
                         {/* <TouchableOpacity 

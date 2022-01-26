@@ -4,7 +4,7 @@ import {
     Text,
     TouchableOpacity,
     ScrollView,
-    ActivityIndicator
+    ActivityIndicator,
 } from 'react-native'
 import styles from './style'
 import StatusBar from '../../components/StatusBar'
@@ -17,7 +17,7 @@ import Input from './input'
 import ProfileCard from '../../components/ProfileCard'
 import { Fonts } from '../../utils/Fonts'
 import { connect } from 'react-redux';
-
+import Entypo from 'react-native-vector-icons/Entypo'
 import DocumentPicker from 'react-native-document-picker';
 
 
@@ -35,18 +35,18 @@ class Chanage extends React.Component{
             city:'',
             zip:'',
             state:'',
-            documents:[],
+            documents: [],
             usermessage:""
         }
     }
     selectFile = async () => {
         try {
-          const res = await DocumentPicker.pick({
+          const res = await DocumentPicker.pickMultiple({
             type: [DocumentPicker.types.allFiles],
           });
           console.log('res : ' + JSON.stringify(res));
           this.setState({
-            documents:[...this.state.documents,res[0]]
+            documents:[...this.state.documents,...res]
           })
         } catch (err) {
           if (DocumentPicker.isCancel(err)) {
@@ -124,7 +124,7 @@ class Chanage extends React.Component{
                     marginVertical:10,
                     fontSize:16
                 }}>{`Policy No : ${this.state.policyNumber}`}</Text>
-                <ScrollView>
+                <ScrollView contentContainerStyle={{paddingBottom:50}}>
                     
                         {
                             this.state.type === "Address" 
@@ -144,12 +144,40 @@ class Chanage extends React.Component{
                                     }}>{'Selected files are'}</Text>
                                     {
                                         this.state.documents.map((_item,index) => {
-                                            return <Text key={index.toString()}style={{
+                                            return <View style={{
+                                                flexDirection:'row',
+                                                alignItems:'center',
+                                                marginBottom:5,
+                                                // justifyContent:'center'
+                                            }}>
+                                                <TouchableOpacity 
+                                                    onPress={() => {
+                                                        this.setState({
+                                                            documents:this.state.documents.filter((el,i) => {
+                                                                return index != i
+                                                            })
+                                                        })
+                                                    }}
+                                                    style={{
+                                                        height:30,
+                                                        width:30,
+                                                        borderRadius:15,
+                                                        borderColor:'black',
+                                                        alignItems:'center',
+                                                        justifyContent:'center'
+                                                    }}>
+                                                    <Entypo name="cross" size={20} color="black" />
+
+                                                </TouchableOpacity>
+
+                                                <Text key={index.toString()}style={{
                                                 fontFamily:Fonts.regular,
                                                 marginLeft:10,
                                                 marginVertical:5,
-                                                color:'black'
+                                                color:'black',
+                                                marginLeft:5,
                                             }}>{_item.name}</Text>
+                                                </View>
                                         })
 
                                     }
@@ -213,7 +241,7 @@ class Chanage extends React.Component{
                                         marginBottom:20,
                                         color:'black'
                                     }}>{'Selected files are'}</Text>
-                                    {
+                                    {/* {
                                         this.state.documents.map((_item,index) => {
                                             return <Text key={index.toString()}style={{
                                                 fontFamily:Fonts.regular,
@@ -221,6 +249,45 @@ class Chanage extends React.Component{
                                                 marginVertical:5,
                                                 color:'black'
                                             }}>{_item.name}</Text>
+                                        })
+
+                                    } */}
+                                     {
+                                        this.state.documents.map((_item,index) => {
+                                            return <View style={{
+                                                flexDirection:'row',
+                                                alignItems:'center',
+                                                marginBottom:5,
+                                                // justifyContent:'center'
+                                            }}>
+                                                <TouchableOpacity 
+                                                    onPress={() => {
+                                                        this.setState({
+                                                            documents:this.state.documents.filter((el,i) => {
+                                                                return index != i
+                                                            })
+                                                        })
+                                                    }}
+                                                    style={{
+                                                        height:30,
+                                                        width:30,
+                                                        borderRadius:15,
+                                                        borderColor:'black',
+                                                        alignItems:'center',
+                                                        justifyContent:'center'
+                                                    }}>
+                                                    <Entypo name="cross" size={20} color="black" />
+
+                                                </TouchableOpacity>
+
+                                                <Text key={index.toString()}style={{
+                                                fontFamily:Fonts.regular,
+                                                marginLeft:10,
+                                                marginVertical:5,
+                                                color:'black',
+                                                marginLeft:5,
+                                            }}>{_item.name}</Text>
+                                                </View>
                                         })
 
                                     }
@@ -262,7 +329,6 @@ class Chanage extends React.Component{
                         {
                             this.state.type === "Vehicle" 
                             ? <View style={{flex:1,}}>
-                                {/* <Input placeholder={'Selected files are'}/> */}
                                 <View style={{
                                     width:'90%',
                                     borderBottomWidth:1,
@@ -275,7 +341,7 @@ class Chanage extends React.Component{
                                         marginBottom:20,
                                         color:'black'
                                     }}>{'Selected files are'}</Text>
-                                    {
+                                    {/* {
                                         this.state.documents.map((_item,index) => {
                                             return <Text key={index.toString()}style={{
                                                 fontFamily:Fonts.regular,
@@ -283,6 +349,45 @@ class Chanage extends React.Component{
                                                 marginVertical:5,
                                                 color:'black'
                                             }}>{_item.name}</Text>
+                                        })
+
+                                    } */}
+                                     {
+                                        this.state.documents.map((_item,index) => {
+                                            return <View style={{
+                                                flexDirection:'row',
+                                                alignItems:'center',
+                                                marginBottom:5,
+                                                // justifyContent:'center'
+                                            }}>
+                                                <TouchableOpacity 
+                                                    onPress={() => {
+                                                        this.setState({
+                                                            documents:this.state.documents.filter((el,i) => {
+                                                                return index != i
+                                                            })
+                                                        })
+                                                    }}
+                                                    style={{
+                                                        height:30,
+                                                        width:30,
+                                                        borderRadius:15,
+                                                        borderColor:'black',
+                                                        alignItems:'center',
+                                                        justifyContent:'center'
+                                                    }}>
+                                                    <Entypo name="cross" size={20} color="black" />
+
+                                                </TouchableOpacity>
+
+                                                <Text key={index.toString()}style={{
+                                                fontFamily:Fonts.regular,
+                                                marginLeft:10,
+                                                marginVertical:5,
+                                                color:'black',
+                                                marginLeft:5,
+                                            }}>{_item.name}</Text>
+                                                </View>
                                         })
 
                                     }
@@ -330,14 +435,14 @@ class Chanage extends React.Component{
                                     marginHorizontal:20,
                                     marginTop:10,
                                 }}>
-                                    Please let us know, what kind of change you want to do in policy.
+                                    Please let us know, what kind of change you want to do in the policy.
                                 </Text>
                                     <Input 
                                         value={this.state.usermessage}
                                         onChangeText={(value) => this.setState({usermessage:value})}
                                         placeholder={'Type message here:'}/>
 
-                                    {/* <Input placeholder={'Selected files are'}/> */}
+                                    
                                     <View style={{
                                     width:'90%',
                                     borderBottomWidth:1,
@@ -350,7 +455,7 @@ class Chanage extends React.Component{
                                         marginBottom:20,
                                         color:'black'
                                     }}>{'Selected files are'}</Text>
-                                    {
+                                    {/* {
                                         this.state.documents.map((_item,index) => {
                                             return <Text key={index.toString()}style={{
                                                 fontFamily:Fonts.regular,
@@ -358,6 +463,45 @@ class Chanage extends React.Component{
                                                 marginVertical:5,
                                                 color:'black'
                                             }}>{_item.name}</Text>
+                                        })
+
+                                    } */}
+                                     {
+                                        this.state.documents.map((_item,index) => {
+                                            return <View style={{
+                                                flexDirection:'row',
+                                                alignItems:'center',
+                                                marginBottom:5,
+                                                // justifyContent:'center'
+                                            }}>
+                                                <TouchableOpacity 
+                                                    onPress={() => {
+                                                        this.setState({
+                                                            documents:this.state.documents.filter((el,i) => {
+                                                                return index != i
+                                                            })
+                                                        })
+                                                    }}
+                                                    style={{
+                                                        height:30,
+                                                        width:30,
+                                                        borderRadius:15,
+                                                        borderColor:'black',
+                                                        alignItems:'center',
+                                                        justifyContent:'center'
+                                                    }}>
+                                                    <Entypo name="cross" size={20} color="black" />
+
+                                                </TouchableOpacity>
+
+                                                <Text key={index.toString()}style={{
+                                                fontFamily:Fonts.regular,
+                                                marginLeft:10,
+                                                marginVertical:5,
+                                                color:'black',
+                                                marginLeft:5,
+                                            }}>{_item.name}</Text>
+                                                </View>
                                         })
 
                                     }

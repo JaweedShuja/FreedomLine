@@ -92,34 +92,55 @@ class SelectPolicy extends React.Component{
                         color={Colors.primary1}
                         style={{
                             alignSelf:'center',
-                            marginVertical:20
+                            // marginVertical:20
                         }}
                     />
                 }
-                {
+                {/* {
                     !this.state.isLoading && !this.state.refreshing && <Text style={{
                         marginVertical:10,
                         fontSize:12,
                         alignSelf:'center',
                         fontFamily:Fonts.regular,
                         color:'black'
-                    }}>{'Pull down to Refrest'}</Text>
+                    }}>{'Pull down to Refresh'}</Text>
+                } */}
+                 {
+                    !this.state.isLoading && !this.state.refreshing && <TouchableOpacity
+                        style={{
+                            alignSelf:'center',
+                            marginBottom:20
+                        }}
+                        onPress={async () => {
+                            this.setState({
+                                refreshing:true,
+                                policies:[]
+                            })
+                            await this.getPolicies()
+                            this.setState({
+                                refreshing:false
+                            })
+                        }}
+                    >
+                        <MaterialIcons name={'refresh'} size={25} color={Colors.primary1} />
+
+                    </TouchableOpacity>
                 }
                 <FlatList 
-                refreshControl={<RefreshControl
-                    refreshing={this.state.refreshing}
-                    onRefresh={async () => {
-                        this.setState({
-                            refreshing:true,
-                            policies:[]
-                        })
-                        await this.getPolicies()
-                        this.setState({
-                            refreshing:false
-                        })
+                // refreshControl={<RefreshControl
+                //     refreshing={this.state.refreshing}
+                //     onRefresh={async () => {
+                //         this.setState({
+                //             refreshing:true,
+                //             policies:[]
+                //         })
+                //         await this.getPolicies()
+                //         this.setState({
+                //             refreshing:false
+                //         })
 
-                    }}
-                  />}
+                //     }}
+                //   />}
                     contentContainerStyle={{paddingBottom:300}}
                     data={this.state.policies}
                     renderItem={this.renderPolicyItem}

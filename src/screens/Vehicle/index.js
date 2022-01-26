@@ -109,8 +109,8 @@ class Vehicle extends React.Component{
                         fontSize:12,
                         alignSelf:'center',
                         fontFamily:Fonts.regular,
-                        color:'black'
-                    }}>{'Pull down to Refrest'}</Text>
+                        color:'#8E8E93'
+                    }}>{'Pull down to Refresh'}</Text>
                 }
                 {
                     this.state.vehicle.map(this.renderVehicleItem)   
