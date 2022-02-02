@@ -14,6 +14,24 @@ export function AuthenticatePayloads(
     });
 }
 
+export function RegisterNewUserPayloads(
+    FirstName,
+    LastName,
+    CellNumber,
+    Email,
+    UserName,
+    UserPassword,
+){
+    return JSON.stringify({
+        FirstName:FirstName,
+        LastName:LastName,
+        CellNumber:CellNumber,
+        Email:Email,
+        UserName:UserName,
+        UserPassword:UserPassword,
+    });
+}
+
 export function ChangeAddressRequestPayloads(
     client_id,
     address,

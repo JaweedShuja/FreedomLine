@@ -9,6 +9,7 @@ const Endorsement = 'Endorsement/'
 
 //End Points
 const Authenticate = 'Authenticate'
+const RegisterNewUser = 'RegisterNewUser'
 const ChangeAddressRequest = 'ChangeAddressRequest'
 const GetUserProfile = 'getUserProfile'
 const GetDocumentType = 'GetDocumentType'
@@ -28,6 +29,9 @@ function getFullApi(subDomain, endPoint) {
 //USER
 export function AuthenticateAPI(){
     return getFullApi(User, Authenticate)
+}
+export function RegisterNewUserAPI(){
+    return getFullApi(User, RegisterNewUser)
 }
 export function GetUserProfileAPI(){
     return getFullApi(User, GetUserProfile)

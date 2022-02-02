@@ -107,6 +107,7 @@ class Login extends React.Component{
                         Username
                     </Text>
                     <TextInput
+                        keyboardType='email-address'
                         value={this.state.username}
                         onChangeText={(username) => this.setState({username})}
                         style={[styles.input,{marginRight:50,}]}
@@ -151,7 +152,9 @@ class Login extends React.Component{
                     onPress={() => {
                         this.onLogin()
                     }}
-                    style={styles.btn}>
+                    style={[styles.btn,{
+                        marginTop:30,
+                    }]}>
                         {
                             this.state.isLoading
                             ?
@@ -163,21 +166,28 @@ class Login extends React.Component{
                             <Text style={styles.btnText}>Login</Text>
                         }
                     </TouchableOpacity>
+                    <TouchableOpacity 
+                        onPress={() => { this.props.navigation.navigate('SignUp') }}
+                        style={[styles.btn,{
+                            marginTop:16,
+                        }]}>
+                        <Text style={styles.btnText}>Sign Up</Text>
+                    </TouchableOpacity>
 
                         <View style={styles.bottomButton}>
                             <TouchableOpacity 
                             onPress={() => {
-                                Linking.openURL('https://freedomlinebrokerage.com/?page_id=182')
+                                Linking.openURL('https://freedomlinebrokerage.com/quotes-2')
                             }}
                             style={styles.btn}>
                                 <Text style={[styles.btnText,{
                                     color:Colors.primary1
-                                }]}>Get a free qoute</Text>
+                                }]}>Get a free quote</Text>
                             </TouchableOpacity>
 
                             <TouchableOpacity 
                             onPress={() => {
-                                Linking.openURL('https://freedomlinebrokerage.com/home/bg-02-free-img/')
+                                Linking.openURL('https://freedomlinebrokerage.com/contact-us')
                             }}
                             style={[styles.btn,{
                                 backgroundColor:"#DE791E"

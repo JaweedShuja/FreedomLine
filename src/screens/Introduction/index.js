@@ -32,14 +32,14 @@ class Introduction extends React.Component{
                 </TouchableOpacity>
                 <TouchableOpacity 
                     onPress={() => {
-                        Linking.openURL('https://freedomlinebrokerage.com/?page_id=182')
+                        Linking.openURL('https://freedomlinebrokerage.com/quotes-2')
                     }}
                     style={styles.btn}>
-                    <Text style={styles.btnText}>Get a Free Qoute</Text>
+                    <Text style={styles.btnText}>Get a Free Quote</Text>
                 </TouchableOpacity>
                 <TouchableOpacity 
                     onPress={() => {
-                        Linking.openURL('https://freedomlinebrokerage.com/home/bg-02-free-img/')
+                        Linking.openURL('https://freedomlinebrokerage.com/contact-us')
                     }}
                     style={styles.btn}>
                     <Text style={styles.btnText}>Contact Us</Text>
@@ -50,7 +50,7 @@ class Introduction extends React.Component{
                     flexDirection:'row'
                 }}>
                     <View style={{ flex:1, }}>
-                        <View style={{
+                        <TouchableOpacity onPress={() => Linking.openURL('https://freedomlinebrokerage.com/tlc')} style={{
                             flex:1.7,
                             borderWidth:2,
                             margin:10,
@@ -85,7 +85,7 @@ class Introduction extends React.Component{
 
                             </View>
 
-                        </View>
+                        </TouchableOpacity>
                         <View style={{
                             height:3,
                             width:'60%',
@@ -93,7 +93,7 @@ class Introduction extends React.Component{
                             backgroundColor:Colors.primary1,
                             alignSelf:'center'
                         }}/>
-                        <View style={{
+                        <TouchableOpacity onPress={() => Linking.openURL('https://freedomlinebrokerage.com/auto')} style={{
                             flex:1.3,
                             borderWidth:2,
                             margin:10,
@@ -129,7 +129,7 @@ class Introduction extends React.Component{
                                 </View>
                             
 
-                        </View>
+                        </TouchableOpacity>
 
                     </View>
                     <View style={{
@@ -140,7 +140,7 @@ class Introduction extends React.Component{
                         alignSelf:'center'
                     }}/>
                     <View style={{ flex:1, }}>
-                        <View style={{
+                        <TouchableOpacity onPress={() => Linking.openURL('https://freedomlinebrokerage.com/business')} style={{
                             flex:1.3,
                             borderWidth:2,
                             margin:10,
@@ -174,9 +174,8 @@ class Introduction extends React.Component{
                                     </Text>
     
                                 </View>
-                            
 
-                        </View>
+                        </TouchableOpacity>
                         <View style={{
                             height:3,
                             width:'60%',
@@ -184,7 +183,7 @@ class Introduction extends React.Component{
                             backgroundColor:Colors.primary1,
                             alignSelf:'center'
                         }}/>
-                        <View style={{
+                        <TouchableOpacity onPress={() => Linking.openURL('https://freedomlinebrokerage.com/home')} style={{
                             flex:1.7,
                             borderWidth:2,
                             margin:10,
@@ -218,7 +217,7 @@ class Introduction extends React.Component{
                                     </Text>
     
                                 </View>
-                        </View>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </View>

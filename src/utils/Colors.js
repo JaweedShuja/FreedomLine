@@ -5,5 +5,6 @@ export const Colors = {
     primary2:'#0A0B39',
     white:'white',
     red:'red',
-    green:'#32C110'
+    green:'#32C110',
+    error:'#FF0000',
 }

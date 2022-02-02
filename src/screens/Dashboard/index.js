@@ -39,6 +39,7 @@ class Dashboard extends React.Component{
             cancelled:0,
             isLoading:false,
             isRedDot:false,
+            totalNotifications:0,
         }
     }
     async getDashboard(){
@@ -79,6 +80,9 @@ class Dashboard extends React.Component{
         )
         if(response.status == true){
             newLength = response.data.length
+            this.setState({
+                totalNotifications:newLength,
+            })
         }
         if(newLength > oldlenght){
             this.setState({
@@ -253,6 +257,16 @@ class Dashboard extends React.Component{
                             name={'notifications'}
                         />
                         <Text style={styles.optionText}>Notifications</Text>
+                        <Text 
+                            style={{
+                                fontFamily:Fonts.bold,
+                                color:Colors.green,
+                                position:'absolute',
+                                right:10,
+                                bottom:5,
+                            }}>
+                            {this.state.totalNotifications}
+                        </Text>
                     </TouchableOpacity>
                 </View>
 
@@ -260,19 +274,19 @@ class Dashboard extends React.Component{
                 <View style={styles.bottomButton}>
                     <TouchableOpacity 
                     onPress={async () => {
-                        const length = await Helper.getCache('javed')
-                        console.log(length)
-                        // Linking.openURL('https://freedomlinebrokerage.com/?page_id=182')
+                        // const length = await Helper.getCache('javed')
+                        // console.log(length)
+                        Linking.openURL('https://freedomlinebrokerage.com/quotes-2')
                     }}
                     style={styles.btn}>
                         <Text style={[styles.btnText,{
                             color:Colors.primary1
-                        }]}>Get a free qoute</Text>
+                        }]}>Get a free quote</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity 
                     onPress={() => {
-                        Linking.openURL('https://freedomlinebrokerage.com/home/bg-02-free-img/')
+                        Linking.openURL('https://freedomlinebrokerage.com/contact-us')
                     }}
                     style={[styles.btn,{
                         backgroundColor:"#DE791E"

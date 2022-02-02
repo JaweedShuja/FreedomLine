@@ -30,22 +30,24 @@ class ChangeModal extends React.Component {
                             ?
                             `
 * Any utility bill under your name
-Or
+  Or
 * Bank Statement
-Or
+  Or
 * Rental Lease 
-* If you don’t have any proof of address, Please contact the office.
+
+
+  If you don’t have required documents, Please contact the office.
                             `
                             :
                             this.props.name == 'Vehicle'
                             ?
                             `
 * Proof of ownership
-*  Title of new vehicle 
-Or
-* Bill of sale 
-* Registeration of existing vehicle
-* If you don’t have any proof of address, Please contact the office.
+  (Title of new vehicle Or Bill of Sale)
+* Registration of existing vehicle
+
+
+  If you don’t have required documents, Please contact the office.
                             `
                             :
                             this.props.name == 'Driver'
@@ -55,7 +57,9 @@ Or
 * TLC License
 * Base Letter 
 * Proof of address
-* If you don’t have any proof of address, Please contact the office.
+
+
+  If you don’t have required documents, Please contact the office.
                             `
                             :
                             ''

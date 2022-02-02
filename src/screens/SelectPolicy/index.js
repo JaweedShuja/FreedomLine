@@ -82,7 +82,7 @@ class SelectPolicy extends React.Component{
                     backgroundColor={Colors.statusBarBackgroundColor_White}
                 />
                 <TopBar 
-                    title={'Selcect Policy'}
+                    title={'Select Policy'}
                     onBackClick={() => { this.props.navigation.goBack() }}
                     onCardClick={() => { this.props.navigation.navigate('Invoices')}}
                 />
