@@ -36,7 +36,9 @@ class Chanage extends React.Component{
             zip:'',
             state:'',
             documents: [],
-            usermessage:""
+            usermessage:"",
+
+            selectedMethod: '1',
         }
     }
     selectFile = async () => {
@@ -65,36 +67,63 @@ class Chanage extends React.Component{
                 isLoading:true
             })
             const fileToUpload = this.state.documents
-            for(let i = 0; i < fileToUpload.length; i++){
-                console.log(fileToUpload[i])
-                const data = new FormData();
-                data.append('city', this.state.city);
-                data.append('clientid', this.props.user.id);
-                data.append('clientpolicyid', this.state.policyId);
-                data.append('documents', fileToUpload[i]);
-                data.append('documenttype', documenttype);
-                data.append('effectivedate', date);
-                data.append('newaddress', this.state.address);
-                data.append('policynumber', this.state.policyNumber);
-                data.append('requestdate', date);
-                data.append('state', this.state.state);
-                data.append('streetaddress', '');
-                data.append('usermessage', usermessage);
-                data.append('zip', this.state.zip);
-                
-                let res = await fetch(
-                    'http://47.21.85.156:7777/api/Endorsement/AddEndorsement',
-                    {
-                        method: 'POST',
-                        body: data,
-                    }
-                );
+            const data = new FormData();
+            data.append('city', this.state.city);
+            data.append('clientid', this.props.user.id);
+            data.append('clientpolicyid', this.state.policyId);
+
+            
+            if(this.state.selectedMethod == '1'){
+                //method 1
+                data.append('documents',JSON.stringify(fileToUpload))
+            }
+            else if(this.state.selectedMethod == '2'){
+                //method 2
+                for(let i = 0; i < fileToUpload.length; i++){
+                    data.append('documents[]',{
+                        uri: fileToUpload[i].uri,
+                        name: fileToUpload[i].name,
+                        type: fileToUpload[i].type,
+                    })
+                }
+            }
+            else if(this.state.selectedMethod == '3'){
+                //method 3
+                for(let i = 0; i < fileToUpload.length; i++){
+                    data.append('documents',{
+                        uri: fileToUpload[i].uri,
+                        name: fileToUpload[i].name,
+                        type: fileToUpload[i].type,
+                    })
+                }
             }            
+            
+            data.append('documenttype', documenttype);
+            data.append('effectivedate', date);
+            data.append('newaddress', this.state.address);
+            data.append('policynumber', this.state.policyNumber);
+            data.append('requestdate', date);
+            data.append('state', this.state.state);
+            data.append('streetaddress', '');
+            data.append('usermessage', usermessage);
+            data.append('zip', this.state.zip);
+
+            console.log(JSON.stringify(data))
+            
+            let res = await fetch(
+                'http://47.21.85.156:7777/api/Endorsement/AddEndorsement',
+                {
+                    method: 'POST',
+                    body: data,
+                }
+            );
+            console.log(JSON.stringify(res))            
             this.setState({
                 isLoading:false,
-                documents:[]
+                // documents:[]
             })
             Helper.showToast('Change Request Has Been Sent')   
+            console.log('selected method' + this.state.selectedMethod)
         } else {
             Helper.showToast('Please Select File first')
         }
@@ -540,6 +569,128 @@ class Chanage extends React.Component{
                         </View>
                             : null
                         }
+
+
+                        <View style={{
+                            marginTop:10,
+                            marginLeft:20,
+                        }}>
+                            <TouchableOpacity 
+                            onPress={() => {
+                                this.setState({
+                                    selectedMethod:'1'
+                                })
+                            }}
+                            style={{
+                                flexDirection:'row',
+                                alignItems:'center',
+                                marginBottom:10
+                            }}>
+                                <View style={{
+                                    height:30,
+                                    width:30,
+                                    borderWidth:1,
+                                    borderColor:Colors.primary2,
+                                    borderRadius:15,
+                                    alignItems:'center',
+                                    justifyContent:'center'
+                                }}>
+                                    {
+                                        this.state.selectedMethod == '1' && <View 
+                                            style={{
+                                                height:20,
+                                                width:20,
+                                                borderRadius:10,
+                                                backgroundColor:Colors.primary2
+                                            }}
+                                        />
+                                    }
+
+                                </View>
+
+                                <Text style={{
+                                    marginLeft:10,
+                                }}>Method 1</Text>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity 
+                            onPress={() => {
+                                this.setState({
+                                    selectedMethod:'2'
+                                })
+                            }}
+                            style={{
+                                flexDirection:'row',
+                                alignItems:'center',
+                                marginBottom:10
+                            }}>
+                                <View style={{
+                                    height:30,
+                                    width:30,
+                                    borderWidth:1,
+                                    borderColor:Colors.primary2,
+                                    borderRadius:15,
+                                    alignItems:'center',
+                                    justifyContent:'center'
+                                }}>
+                                    {
+                                        this.state.selectedMethod == '2' && <View 
+                                            style={{
+                                                height:20,
+                                                width:20,
+                                                borderRadius:10,
+                                                backgroundColor:Colors.primary2
+                                            }}
+                                        />
+                                    }
+
+                                </View>
+
+                                <Text style={{
+                                    marginLeft:10,
+                                }}>Method 2</Text>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity 
+                            onPress={() => {
+                                this.setState({
+                                    selectedMethod:'3'
+                                })
+                            }}
+                            style={{
+                                flexDirection:'row',
+                                alignItems:'center',
+                                marginBottom:10
+                            }}>
+                                <View style={{
+                                    height:30,
+                                    width:30,
+                                    borderWidth:1,
+                                    borderColor:Colors.primary2,
+                                    borderRadius:15,
+                                    alignItems:'center',
+                                    justifyContent:'center'
+                                }}>
+                                    {
+                                        this.state.selectedMethod == '3' && <View 
+                                            style={{
+                                                height:20,
+                                                width:20,
+                                                borderRadius:10,
+                                                backgroundColor:Colors.primary2
+                                            }}
+                                        />
+                                    }
+
+                                </View>
+
+                                <Text style={{
+                                    marginLeft:10,
+                                }}>Method 3</Text>
+                            </TouchableOpacity>
+
+                            
+                        </View>
                 </ScrollView>
                
                

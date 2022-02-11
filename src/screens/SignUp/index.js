@@ -51,36 +51,36 @@ class SignUp extends React.Component{
             UserName,
             UserPassword,
         } = this.state
-        var error = false
-        var message = ''
-        if(FirstName == ''){
-            error = true
-            message = 'First Name is required'
-        }
-        else if(LastName == ''){
-            error = true
-            message = 'Last Name is required'
-        }
-        else if(CellNumber == ''){
-            error = true
-            message = 'Cell Number is required'
-        }
-        else if(Email == ''){
-            error = true
-            message = 'Email is required'
-        }
-        else if(UserName == ''){
-            error = true
-            message = 'User Name is required'
-        }
-        else if(UserPassword == ''){
-            error = true
-            message = 'Password is required'
-        }
-        if(error){
-            Helper.showToast(message)
-        }
-        else{
+        // var error = false
+        // var message = ''
+        // if(FirstName == ''){
+        //     error = true
+        //     message = 'First Name is required'
+        // }
+        // else if(LastName == ''){
+        //     error = true
+        //     message = 'Last Name is required'
+        // }
+        // else if(CellNumber == ''){
+        //     error = true
+        //     message = 'Cell Number is required'
+        // }
+        // else if(Email == ''){
+        //     error = true
+        //     message = 'Email is required'
+        // }
+        // else if(UserName == ''){
+        //     error = true
+        //     message = 'User Name is required'
+        // }
+        // else if(UserPassword == ''){
+        //     error = true
+        //     message = 'Password is required'
+        // }
+        // if(error){
+        //     Helper.showToast(message)
+        // }
+        // else{
             this.setState({
                 isLoading:true,
                 errorMessage:""
@@ -106,9 +106,8 @@ class SignUp extends React.Component{
                 this.setState({
                     errorMessage:response.message
                 })
-                // Helper.showToast(response.message)
             }       
-        }
+        // }
     }
     render(){
         return(
@@ -219,11 +218,11 @@ class SignUp extends React.Component{
                                     size={'small'}
                                 />
                                 :
-                                <Text style={styles.btnText}>Sign Up</Text>
+                                <Text style={styles.btnText}>Submit</Text>
                             }
                         </TouchableOpacity>
 
-                            <View style={styles.bottomButton}>
+                            {/* <View style={styles.bottomButton}>
                                 <TouchableOpacity 
                                 onPress={() => {
                                     Linking.openURL('https://freedomlinebrokerage.com/quotes-2')
@@ -245,7 +244,7 @@ class SignUp extends React.Component{
                                         color:Colors.white
                                     }]}>Contact Us</Text>
                                 </TouchableOpacity>
-                            </View>
+                            </View> */}
                         {/* </ScrollView> */}
             </ImageBackground>
         )
