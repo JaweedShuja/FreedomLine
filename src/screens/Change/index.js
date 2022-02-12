@@ -73,30 +73,30 @@ class Chanage extends React.Component{
             data.append('clientpolicyid', this.state.policyId);
 
             
-            if(this.state.selectedMethod == '1'){
-                //method 1
-                data.append('documents',JSON.stringify(fileToUpload))
+            // if(this.state.selectedMethod == '1'){
+            //     //method 1
+            //     data.append('documents',JSON.stringify(fileToUpload))
+            // }
+            // else if(this.state.selectedMethod == '2'){
+            //     //method 2
+            //     for(let i = 0; i < fileToUpload.length; i++){
+            //         data.append('documents[]',{
+            //             uri: fileToUpload[i].uri,
+            //             name: fileToUpload[i].name,
+            //             type: fileToUpload[i].type,
+            //         })
+            //     }
+            // }
+            // else if(this.state.selectedMethod == '3'){
+            //     //method 3
+            for(let i = 0; i < fileToUpload.length; i++){
+                data.append('documents',{
+                    uri: fileToUpload[i].uri,
+                    name: fileToUpload[i].name,
+                    type: fileToUpload[i].type,
+                })
             }
-            else if(this.state.selectedMethod == '2'){
-                //method 2
-                for(let i = 0; i < fileToUpload.length; i++){
-                    data.append('documents[]',{
-                        uri: fileToUpload[i].uri,
-                        name: fileToUpload[i].name,
-                        type: fileToUpload[i].type,
-                    })
-                }
-            }
-            else if(this.state.selectedMethod == '3'){
-                //method 3
-                for(let i = 0; i < fileToUpload.length; i++){
-                    data.append('documents',{
-                        uri: fileToUpload[i].uri,
-                        name: fileToUpload[i].name,
-                        type: fileToUpload[i].type,
-                    })
-                }
-            }            
+            // }            
             
             data.append('documenttype', documenttype);
             data.append('effectivedate', date);
@@ -571,7 +571,7 @@ class Chanage extends React.Component{
                         }
 
 
-                        <View style={{
+                        {/* <View style={{
                             marginTop:10,
                             marginLeft:20,
                         }}>
@@ -690,7 +690,7 @@ class Chanage extends React.Component{
                             </TouchableOpacity>
 
                             
-                        </View>
+                        </View> */}
                 </ScrollView>
                
                
