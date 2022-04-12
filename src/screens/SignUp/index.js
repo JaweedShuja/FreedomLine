@@ -120,7 +120,7 @@ class SignUp extends React.Component{
                     barStyle={commonStyles.statusBarStyleLight}
                     backgroundColor={Colors.primary2}
                 />
-                    {/* <ScrollView> */}
+                    <ScrollView>
                         <View style={styles.lognView}>
                             <Text style={styles.login}>Sign Up</Text>
                         </View>
@@ -245,7 +245,7 @@ class SignUp extends React.Component{
                                     }]}>Contact Us</Text>
                                 </TouchableOpacity>
                             </View> */}
-                        {/* </ScrollView> */}
+                        </ScrollView>
             </ImageBackground>
         )
     }
